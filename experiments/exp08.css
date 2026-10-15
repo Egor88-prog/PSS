@@ -1,0 +1,19 @@
+/* Опыт 8. Абсолютная метка.
+   Первое объявление снимает relative с карточки featured —
+   метка начинает отсчитываться от предка, у которого задан position.
+   Второе объявление добавляет такой предок, чтобы показать, что
+   ближайший позиционированный предок меняет опорную точку. */
+
+.featured--static {
+  position: static;
+}
+
+.demo-box {
+  position: relative;
+  min-height: 7rem;
+  margin-block: var(--space);
+  padding: var(--space);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+}

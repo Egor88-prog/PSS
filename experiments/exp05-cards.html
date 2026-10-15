@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 5. Сетка карточек — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp05.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 5. Сетка карточек</h1>
+      <p><code>repeat(2, minmax(0, 1fr))</code> заменено на <code>repeat(3, minmax(0, 1fr))</code>.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp05">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.cards { grid-template-columns: repeat(2, minmax(0, 1fr)) }</code></p>
+        <p class="demo-value">Изменённое значение, файл <a href="exp05.css">exp05.css</a>: <code>.cards--three { grid-template-columns: repeat(3, minmax(0, 1fr)) }</code></p>
+        <h3>Видимый результат</h3>
+        <p>При двух колонках карточки стоят парами: первая и вторая в первой строке, третья и четвёртая — во второй. При трёх колонках первая строка вмещает три карточки, а четвёртая переходит на вторую строку в первую колонку, то есть в порядке HTML. Порядок чтения не меняется, меняется только точка переноса.</p>
+        <h3>Объяснение</h3>
+        <p>Без явного размещения Grid заполняет сетку по порядку исходного кода: элементы занимают ячейки слева направо, затем переходят на следующую строку. Чтобы растянуть карточку на всю строку, ей задают <code>grid-column: 1 / -1</code>.</p>
+      </div>
+
+      <h2>Стенд</h2>
+
+      <p class="demo-label">1. Исходный вариант — <code>repeat(2, ...)</code></p>
+      <div class="cards">
+        <article class="card"><h3>Омлет с зеленью</h3><p>Карточка первая.</p></article>
+        <article class="card"><h3>Крем-суп из тыквы</h3><p>Карточка вторая.</p></article>
+        <article class="card"><h3>Салат из свежих овощей</h3><p>Карточка третья.</p></article>
+        <article class="card"><h3>Яблочный пирог</h3><p>Карточка четвёртая.</p></article>
+      </div>
+
+      <p class="demo-label">2. Изменённый вариант — <code>repeat(3, ...)</code></p>
+      <div class="cards cards--three">
+        <article class="card"><h3>Омлет с зеленью</h3><p>Карточка первая.</p></article>
+        <article class="card"><h3>Крем-суп из тыквы</h3><p>Карточка вторая.</p></article>
+        <article class="card"><h3>Салат из свежих овощей</h3><p>Карточка третья.</p></article>
+        <article class="card"><h3>Яблочный пирог</h3><p>Карточка четвёртая: перешла на вторую строку в первую колонку.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>

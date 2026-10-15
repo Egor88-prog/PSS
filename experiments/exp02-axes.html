@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 2. Оси Flexbox — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp02.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 2. Оси Flexbox</h1>
+      <p>Меню переведено в <code>flex-direction: column</code>: главная ось стала вертикальной.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp02">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.menu { flex-direction: row }</code></p>
+        <p class="demo-value">Изменённое значение, файл <a href="exp02.css">exp02.css</a>: <code>.menu--column { flex-direction: column }</code> и высокая рамка <code>min-height: 20rem</code></p>
+        <h3>Видимый результат</h3>
+        <p>При <code>row</code> пункты выстроены по горизонтали, а <code>justify-content: center</code> собирает их ряд и центрирует по горизонтали. При <code>column</code> пункты выстраиваются сверху вниз и центрируются по горизонтали, а свободное место теперь распределяется <code>justify-content</code> по вертикали: в высокой рамке группа пунктов уходит вниз от верхней границы.</p>
+        <h3>Объяснение</h3>
+        <p><code>flex-direction</code> задаёт направление главной оси. <code>justify-content</code> работает вдоль главной оси, <code>align-items</code> — вдоль поперечной. Поэтому смена направления меняет и то, вдоль чего распределяется свободное место, хотя сами свойства не менялись.</p>
+      </div>
+
+      <h2>Стенд</h2>
+      <div class="demo-block">
+        <p class="demo-label">1. Исходный вариант — <code>row</code>, главная ось горизонтальная</p>
+        <div class="demo-frame demo-frame--tall">
+          <nav aria-label="Меню в ряд">
+            <ul class="menu">
+              <li><a href="#exp02">О мастерской</a></li>
+              <li><a href="#exp02">Рецепты</a></li>
+              <li><a href="#exp02">Запись</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <p class="demo-label">2. Изменённый вариант — <code>column</code>, главная ось вертикальная</p>
+        <div class="demo-frame demo-frame--tall">
+          <nav aria-label="Меню в колонку">
+            <ul class="menu menu--column">
+              <li><a href="#exp02">О мастерской</a></li>
+              <li><a href="#exp02">Рецепты</a></li>
+              <li><a href="#exp02">Запись</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>

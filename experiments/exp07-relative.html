@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 7. Относительное смещение — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp07.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 7. Относительное смещение</h1>
+      <p>Обычной карточке задано <code>position: relative; top: 1rem</code>.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp07">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.card { position: static }</code> — значение по умолчанию</p>
+        <p class="demo-value">Изменённое значение, файл <a href="exp07.css">exp07.css</a>: <code>.card--shift { position: relative; top: 1rem }</code></p>
+        <h3>Видимый результат</h3>
+        <p>Карточка с классом <code>card--shift</code> опустилась на 16&nbsp;px: её верхняя граница перешла с отметки 0 на отметку 16. При этом следующая карточка осталась на своём месте — она не сдвинулась вместе с ней, и пустая строка между карточками исчезла.</p>
+        <h3>Объяснение</h3>
+        <p><code>relative</code> оставляет элемент в потоке: место под него резервируется, как обычно. Смещение создаётся только визуально, поэтому соседние элементы не меняют положение. У <code>static</code> значения <code>top</code>, <code>right</code>, <code>bottom</code> и <code>left</code> вообще не действуют.</p>
+      </div>
+
+      <h2>Стенд</h2>
+
+      <p class="demo-label">1. Исходный вариант — <code>static</code></p>
+      <div class="cards">
+        <article class="card"><h3>Карточка до</h3><p>Обычное положение в сетке.</p></article>
+        <article class="card"><h3>Карточка после</h3><p>Стоит на своём месте в той же строке.</p></article>
+      </div>
+
+      <p class="demo-label">2. Изменённый вариант — <code>relative; top: 1rem</code></p>
+      <div class="cards">
+        <article class="card"><h3>Карточка до</h3><p>Не изменилась.</p></article>
+        <article class="card card--shift"><h3>Карточка после</h3><p>Сместилась вниз на 16&nbsp;px, но место в сетке за ней сохранилось.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>

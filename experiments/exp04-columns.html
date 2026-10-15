@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 4. Колонки Grid — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp04.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 4. Колонки Grid</h1>
+      <p>Отношение колонок <code>2fr 1fr</code> заменено на <code>1fr 1fr</code>, <code>minmax(0, ...)</code> сохранено.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp04">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.layout { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) }</code></p>
+        <p class="demo-value">Изменённое значение, файл <a href="exp04.css">exp04.css</a>: <code>.layout--equal { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) }</code></p>
+        <h3>Видимый результат</h3>
+        <p>При <code>2fr 1fr</code> основной блок занимает 731&nbsp;px, а <code>aside</code> — 365&nbsp;px. При <code>1fr 1fr</code> оба блока равны: по 548&nbsp;px. Сумма колонок в обоих случаях одинакова — 1096&nbsp;px, потому что свободное место делится после вычета <code>gap: 1.5rem</code>.</p>
+        <h3>Объяснение</h3>
+        <p>Единица <code>fr</code> обозначает долю свободного пространства, а не фиксированный размер. Поэтому <code>1fr 1fr</code> даёт равные колонки, а <code>2fr 1fr</code> — отношение 2:1. <code>minmax(0, ...)</code> разрешает колонке сжиматься уже ширины её содержимого; сам длинный текст при этом всё равно нужно переносить или прокручивать.</p>
+      </div>
+
+      <h2>Стенд</h2>
+
+      <p class="demo-label">1. Исходный вариант — <code>2fr 1fr</code></p>
+      <div class="layout">
+        <div>
+          <article class="story">
+            <h3>Основное содержимое</h3>
+            <p>Левая колонка сетки. При <code>2fr</code> она занимает две трети свободного места.</p>
+          </article>
+        </div>
+        <aside>
+          <h3>Дополнительные сведения</h3>
+          <p>Правая колонка сетки, в неё попадает содержимое <code>aside</code>.</p>
+        </aside>
+      </div>
+
+      <p class="demo-label">2. Изменённый вариант — <code>1fr 1fr</code></p>
+      <div class="layout layout--equal">
+        <div>
+          <article class="story">
+            <h3>Основное содержимое</h3>
+            <p>Та же разметка, но колонки получили равные доли свободного места.</p>
+          </article>
+        </div>
+        <aside>
+          <h3>Дополнительные сведения</h3>
+          <p>Блок <code>aside</code> стал такой же ширины, как основной блок.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>

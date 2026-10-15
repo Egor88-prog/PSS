@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 3. Перенос меню — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp03.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 3. Перенос меню</h1>
+      <p>Медиазапрос отключён: ряд возвращён принудительно, добавлен длинный пункт.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp03">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.menu { flex-wrap: wrap }</code>, при ширине не более 48&nbsp;rem действует <code>flex-direction: column</code></p>
+        <p class="demo-value">Изменённое значение, файл <a href="exp03.css">exp03.css</a>: <code>.menu { flex-direction: row; align-items: center }</code> (медиазапрос отключён) и <code>.menu--nowrap { flex-wrap: nowrap }</code> для второго стенда</p>
+        <h3>Порядок работы</h3>
+        <ol class="demo-list">
+          <li>Сузьте окно до 768 и затем до 375&nbsp;CSS-пикселей — стенд специально оставлен в широкоэкранном виде.</li>
+          <li>Сравните верхний и нижний варианты: с переносом и без него.</li>
+        </ol>
+        <h3>Видимый результат</h3>
+        <p>С <code>wrap</code> длинный пункт переносится на следующую строку целиком, меню занимает две строки. С <code>nowrap</code> строка не переносится, длинный пункт упирается в правый край, и рамка стенда показывает горизонтальную прокрутку — текст уходит за пределы окна.</p>
+        <h3>Объяснение</h3>
+        <p><code>flex-wrap: nowrap</code> запрещает перенос: пункты остаются на одной главной оси. Поскольку flex-элементы умеют сжиматься, короткие пункты сжимаются, а длинный текст без разрешения переноса выдавливает строку за границу контейнера. <code>wrap</code> разрешает перенос на дополнительные строки — но работает одна ось за раз, поэтому колонки между строками могут отличаться.</p>
+      </div>
+
+      <h2>Стенд</h2>
+      <div class="demo-block">
+        <p class="demo-label">1. Исходный вариант — <code>flex-wrap: wrap</code></p>
+        <div class="demo-frame">
+          <nav aria-label="Меню с переносом">
+            <ul class="menu">
+              <li><a href="#exp03">О мастерской</a></li>
+              <li><a href="#exp03">Простой рецепт: омлет с зеленью</a></li>
+              <li><a href="#exp03">Карточки рецептов</a></li>
+              <li><a href="#exp03">Программа занятий</a></li>
+              <li><a href="#exp03">Аудио и видео</a></li>
+              <li><a href="#exp03">Кулинарные советы и рецепты на Викиучебнике</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <p class="demo-label">2. Изменённый вариант — <code>flex-wrap: nowrap</code></p>
+        <div class="demo-frame demo-frame--scroll">
+          <nav aria-label="Меню без переноса">
+            <ul class="menu menu--nowrap">
+              <li><a href="#exp03">О мастерской</a></li>
+              <li><a href="#exp03">Простой рецепт: омлет с зеленью</a></li>
+              <li><a href="#exp03">Карточки рецептов</a></li>
+              <li><a href="#exp03">Программа занятий</a></li>
+              <li><a href="#exp03">Аудио и видео</a></li>
+              <li><a href="#exp03">Кулинарные советы и рецепты на Викиучебнике</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="demo-block">
+        <p class="demo-label">Отметка для проверки горизонтального переполнения</p>
+        <div class="demo-marker">эта полоса должна оставаться по ширине экрана при любом варианте</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>

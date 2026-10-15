@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыты над свойствами — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыты над свойствами</h1>
+      <p>Стенд лабораторной работы № 5: на каждой странице меняется одно условие, остальные правила действуют как на сайте.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="../about.html">О проекте</a></li>
+      <li><a href="../styles.css">styles.css</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="about">
+      <h2>Как устроен стенд</h2>
+      <p>Каждая страница подключает три внешние таблицы стилей: основную <code>../styles.css</code>, общие стили стенда <code>experiments.css</code> и отдельный файл опыта. В файле опыта находится ровно то объявление, которое менялось, поэтому исходное значение всегда видно рядом с изменённым.</p>
+      <p>После каждого опыта значение возвращается: сайт в папке <code>..</code> остаётся в исходном состоянии, а файл опыта действует только на своей странице.</p>
+    </section>
+
+    <section id="list">
+      <h2>Список опытов</h2>
+      <div class="table-scroll">
+        <table>
+          <caption>Десять опытов из раздела «Исследование работы свойств»</caption>
+          <thead>
+            <tr>
+              <th scope="col">№</th>
+              <th scope="col">Опыт</th>
+              <th scope="col">Исходное значение</th>
+              <th scope="col">Изменённое значение</th>
+              <th scope="col">Видимый результат</th>
+              <th scope="col">Страница</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Обычный поток</td>
+              <td><code>.menu { display: flex }</code></td>
+              <td><code>display: block</code></td>
+              <td>Пункты встали в столбик, высота меню выросла с 149 до 538&nbsp;px</td>
+              <td><a href="exp01-flow.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Оси Flexbox</td>
+              <td><code>flex-direction: row</code></td>
+              <td><code>flex-direction: column</code></td>
+              <td>Главная ось стала вертикальной, <code>justify-content</code> распределяет пункты по высоте</td>
+              <td><a href="exp02-axes.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Перенос меню</td>
+              <td><code>flex-wrap: wrap</code></td>
+              <td><code>flex-wrap: nowrap</code></td>
+              <td>Длинный пункт больше не переносится и даёт горизонтальную прокрутку</td>
+              <td><a href="exp03-wrap.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Колонки Grid</td>
+              <td><code>minmax(0, 2fr) minmax(0, 1fr)</code></td>
+              <td><code>minmax(0, 1fr) minmax(0, 1fr)</code></td>
+              <td>Основной блок сузился с 731 до 548&nbsp;px, <code>aside</code> расширился с 365 до 548&nbsp;px</td>
+              <td><a href="exp04-columns.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Сетка карточек</td>
+              <td><code>repeat(2, minmax(0, 1fr))</code></td>
+              <td><code>repeat(3, minmax(0, 1fr))</code></td>
+              <td>Первая строка вместила три карточки, четвёртая перешла на вторую строку</td>
+              <td><a href="exp05-cards.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Обтекание</td>
+              <td><code>float: left</code></td>
+              <td><code>float: right</code>, <code>float: none</code>, <code>clear: both</code></td>
+              <td>Строки текста идут справа, слева или во всю ширину; <code>after-image</code> уходит под фото</td>
+              <td><a href="exp06-float.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Относительное смещение</td>
+              <td><code>position: static</code></td>
+              <td><code>position: relative; top: 1rem</code></td>
+              <td>Карточка сместилась на 16&nbsp;px, следующая осталась на месте</td>
+              <td><a href="exp07-relative.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>Абсолютная метка</td>
+              <td><code>.featured { position: relative }</code></td>
+              <td><code>position: static</code></td>
+              <td>Метка уехала в правый верхний угол окна — считает от начального содержащего блока</td>
+              <td><a href="exp08-absolute.html">открыть</a></td>
+            </tr>
+            <tr>
+              <th scope="row">9</th>
+              <td>Закреплённая шапка</td>
+              <td><code>position: sticky; top: 0</code></td>
+              <td><code>position: fixed; top: 0</code></td>
+              <td>У <code>sticky</code> место в потоке сохраняется (меню остаётся на отметке 174&nbsp;px), у <code>fixed</code> содержимое поднимается на высоту шапки — до 12&nbsp;px</td>
+              <td><a href="exp09a-sticky.html">sticky</a> · <a href="exp09b-fixed.html">fixed</a></td>
+            </tr>
+            <tr>
+              <th scope="row">10</th>
+              <td>Адаптация</td>
+              <td><code>@media (max-width: 48rem)</code></td>
+              <td>медиазапрос отключён</td>
+              <td>На 768&nbsp;px остаются две колонки, рядное меню и обтекание; на 375&nbsp;px колонки сжимаются до 88&nbsp;px и появляется горизонтальная прокрутка</td>
+              <td><a href="exp10-responsive.html">открыть</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="note">
+      <h2>Порядок работы</h2>
+      <ol>
+        <li>Открыть страницу опыта и записать исходное значение из блока «Что меняем».</li>
+        <li>Посмотреть на стенд, изменить ширину окна до 1200, 768 и 375&nbsp;CSS-пикселей и при необходимости включить масштаб 200&nbsp;%.</li>
+        <li>Сравнить результат с записанным и вернуть исходное значение — на стенде оно уже возвращено правилом из <code>styles.css</code>.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Стенд опытов лабораторной работы № 5. Вариант 6 — кулинарная мастерская.</p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+      <p><a href="../index.html">Сайт мастерской</a> · <a href="#top">В начало страницы</a></p>
+    </div>
+  </footer>
+</body>
+</html>

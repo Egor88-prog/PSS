@@ -1,0 +1,14 @@
+/* Опыт 6. Обтекание: float: left, float: right и float: none.
+   Абзац с классом .after-image (clear: both) задано в основных стилях. */
+
+.story-image--right {
+  float: right;
+  margin: 0 0 0.5rem 1rem;
+}
+
+.story-image--none {
+  float: none;
+  display: block;
+  width: min(100%, 20rem);
+  margin: 0 auto 1rem;
+}

@@ -1,0 +1,11 @@
+/* Опыт 2. Оси Flexbox: flex-direction: column.
+   Первое объявление делает рамку выше пунктов меню, чтобы было видно,
+   по какой оси теперь распределяет свободное место justify-content. */
+
+.menu--column {
+  flex-direction: column;
+}
+
+.demo-frame--tall {
+  min-height: 20rem;
+}

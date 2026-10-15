@@ -1,0 +1,6 @@
+/* Опыт 1. Обычный поток: display: flex против display: block.
+   Меняется одно объявление — display у варианта «как в блоке». */
+
+.menu--block {
+  display: block;
+}

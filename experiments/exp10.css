@@ -1,0 +1,29 @@
+/* Опыт 10. Адаптация к ширине экрана.
+   Ниже воспроизведены широкоэкранные правила: они загружаются после
+   styles.css и отменяют объявления медиазапроса «не более 48rem».
+   В итоге на узком окне остаются две колонки, рядное меню
+   и обтекание фотографии — как на широком экране. */
+
+.layout {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+}
+
+.cards {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.menu {
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+}
+
+.story-image {
+  float: left;
+  width: min(40%, 12rem);
+  margin: 0 1rem 0.5rem 0;
+}
+
+.site-header {
+  position: sticky;
+}

@@ -1,0 +1,78 @@
+/* ============================================================
+   Стенд опытов лабораторной работы № 5 — общие стили.
+   Подключается после ../styles.css на всех страницах стенда.
+   Экспериментальные объявления лежат в отдельных файлах
+   exp01.css … exp10.css: в каждом из них меняется ровно одно
+   условие по сравнению с основной таблицей стилей.
+   ============================================================ */
+
+/* Подпись над стендом */
+.demo-label {
+  margin: 0 0 0.4rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Строка «исходное значение / изменённое значение» */
+.demo-value {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.demo-block {
+  margin-block: var(--space);
+}
+
+/* Рамка вокруг демонстрируемого элемента */
+.demo-frame {
+  padding: var(--space);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+}
+
+/* Рамка с горизонтальной прокруткой: нужна для опыта с nowrap */
+.demo-frame--scroll {
+  overflow-x: auto;
+}
+
+/* Карточка пояснений: что меняли, что получилось */
+.demo-note {
+  margin-block: var(--space);
+  padding: var(--space);
+  border: 1px dashed var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+}
+
+.demo-note h3 {
+  margin-top: 0;
+}
+
+.demo-list {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+/* Длинный текст для проверки закреплённой шапки */
+.demo-long {
+  margin-block: var(--space);
+  padding: var(--space);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+}
+
+/* Отметка-полоса: показывает, где начинается прокрутка */
+.demo-marker {
+  margin-block: var(--space);
+  padding: 0.5rem 1rem;
+  border: 1px dashed var(--accent);
+  border-radius: 0.25rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--accent);
+  background-color: var(--accent-soft);
+}

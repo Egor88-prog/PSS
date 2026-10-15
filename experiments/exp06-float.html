@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 6. Обтекание — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp06.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 6. Обтекание</h1>
+      <p>Сравниваются <code>float: left</code>, <code>float: right</code>, <code>float: none</code> и абзац с <code>clear: both</code>.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp06">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.story-image { float: left }</code>, у абзаца <code>.after-image { clear: both }</code></p>
+        <p class="demo-value">Изменённые значения, файл <a href="exp06.css">exp06.css</a>: <code>.story-image--right { float: right }</code> и <code>.story-image--none { float: none }</code></p>
+        <h3>Видимый результат</h3>
+        <ul class="demo-list">
+          <li><code>float: left</code> — строки абзаца идут справа от фотографии, их ширина около 442&nbsp;px вместо 660&nbsp;px.</li>
+          <li><code>float: right</code> — строки идут слева, фотография прижата к правому краю.</li>
+          <li><code>float: none</code> — фотография вернулась в обычный поток, текст занимает всю ширину, высота заметки выросла с 526 до 663&nbsp;px.</li>
+          <li><code>clear: both</code> — абзац с классом <code>after-image</code> начинается ниже фотографии; без этого правила он продолжил бы обтекание.</li>
+        </ul>
+        <h3>Объяснение</h3>
+        <p>Плавающий элемент вынут из обычного блочного потока, но продолжает влиять на доступное место для строк текста, поэтому <code>float</code> не равнозначен <code>absolute</code>. Контейнер заметки имеет <code>display: flow-root</code>: он создаёт новый блочный контекст форматирования и учитывает высоту плавающего потомка. <code>clear: both</code> переносит блок ниже плавающих элементов с обеих сторон в том же контексте.</p>
+      </div>
+
+      <h2>Стенд</h2>
+
+      <p class="demo-label">1. Исходный вариант — <code>float: left</code></p>
+      <article class="story">
+        <img class="story-image" src="../images/exhibit.jpg" alt="Омлет с зеленью на белой тарелке">
+        <p>Строки этого абзаца обтекают фотографию справа, поэтому он заметно уже остального текста заметки.</p>
+        <p class="after-image">Этот абзац имеет класс <code>after-image</code> с правилом <code>clear: both</code>, поэтому он начинается ниже фотографии и снова занимает всю ширину.</p>
+      </article>
+
+      <p class="demo-label">2. Изменённый вариант — <code>float: right</code></p>
+      <article class="story">
+        <img class="story-image story-image--right" src="../images/exhibit.jpg" alt="Омлет с зеленью на белой тарелке">
+        <p>Теперь строки обтекают фотографию слева, а сама она прижата к правому краю заметки.</p>
+        <p class="after-image">Абзац с <code>clear: both</code> ведёт себя так же: он переносится ниже плавающего элемента.</p>
+      </article>
+
+      <p class="demo-label">3. Изменённый вариант — <code>float: none</code></p>
+      <article class="story">
+        <img class="story-image story-image--none" src="../images/exhibit.jpg" alt="Омлет с зеленью на белой тарелке">
+        <p>Фотография вернулась в обычный поток, обтекания нет, и оба абзаца занимают всю ширину заметки.</p>
+        <p class="after-image">Правило <code>clear: both</code> здесь ничего не меняет: рядом нет плавающих элементов, поэтому абзац остаётся на своём месте.</p>
+      </article>
+
+      <p class="demo-label">4. Разница между абзацем с <code>clear: both</code> и без него</p>
+      <article class="story">
+        <img class="story-image" src="../images/exhibit.jpg" alt="Омлет с зеленью на белой тарелке">
+        <p>Короткий абзац: он занимает две строки рядом с фотографией.</p>
+        <p class="after-image">Абзац с классом <code>after-image</code> начинается ниже нижней границы фотографии.</p>
+      </article>
+      <article class="story">
+        <img class="story-image" src="../images/exhibit.jpg" alt="Омлет с зеленью на белой тарелке">
+        <p>Короткий абзац: он занимает две строки рядом с фотографией.</p>
+        <p class="after-image-no">Такой же абзац без класса <code>after-image</code> продолжает обтекание и начинается на одной высоте с коротким абзацем.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>

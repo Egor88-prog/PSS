@@ -1,0 +1,6 @@
+/* Опыт 5. Сетка карточек: repeat(2, minmax(0, 1fr))
+   против repeat(3, minmax(0, 1fr)). */
+
+.cards--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}

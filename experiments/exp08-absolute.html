@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Гурский Егор, группа 88тп">
+  <title>Опыт 8. Абсолютная метка — Кулинарная мастерская</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="experiments.css">
+  <link rel="stylesheet" href="exp08.css">
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="container">
+      <h1>Опыт 8. Абсолютная метка</h1>
+      <p>У карточки <code>featured</code> отключено <code>position: relative</code>.</p>
+    </div>
+  </header>
+
+  <nav class="container" aria-label="Разделы стенда">
+    <ul class="menu">
+      <li><a href="index.html">Все опыты</a></li>
+      <li><a href="../index.html">Сайт мастерской</a></li>
+      <li><a href="#top">В начало страницы</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+    <section id="exp08">
+      <h2>Что меняем</h2>
+      <div class="demo-note">
+        <p class="demo-value">Исходное значение: <code>.featured { position: relative }</code>, метка <code>.badge { position: absolute; top: 1rem; right: 1rem }</code></p>
+        <p class="demo-value">Изменённое значение, файл <a href="exp08.css">exp08.css</a>: <code>.featured--static { position: static }</code> и рамка <code>.demo-box { position: relative }</code></p>
+        <h3>Видимый результат</h3>
+        <ul class="demo-list">
+          <li>Обычная карточка <code>featured</code>: метка «Сезонное» стоит в правом верхнем углу карточки на расстоянии 1&nbsp;rem от краёв.</li>
+          <li>Карточка <code>featured--static</code> в обычном потоке: метка исчезла из карточки и оказалась в правом верхнем углу окна — теперь её положение задаёт начальный содержащий блок страницы.</li>
+          <li>Та же карточка внутри рамки <code>demo-box</code> с <code>position: relative</code>: метка вернулась внутрь рамки, потому что ближайшим позиционированным предком стала рамка.</li>
+        </ul>
+        <h3>Объяснение</h3>
+        <p><code>absolute</code> исключает элемент из потока, а отсчёт ведётся от ближайшего предка, у которого <code>position</code> отличен от <code>static</code>. Если такого предка нет, отсчёт идёт от начального содержащего блока — это и есть угол окна. Содержащий блок могут задавать и другие свойства предков, например <code>transform</code>.</p>
+      </div>
+
+      <h2>Стенд</h2>
+
+      <p class="demo-label">1. Исходный вариант — карточка <code>featured</code> с <code>position: relative</code></p>
+      <div class="cards">
+        <article class="card featured">
+          <span class="badge">Сезонное</span>
+          <h3>Крем-суп из тыквы</h3>
+          <p>Метка привязана к карточке: она сдвинута на 1&nbsp;rem вниз и влево от её правого верхнего угла.</p>
+        </article>
+      </div>
+
+      <p class="demo-label">2. Изменённый вариант — <code>position: static</code>, позиционированных предков нет</p>
+      <div class="cards">
+        <article class="card featured featured--static">
+          <span class="badge">Сезонное</span>
+          <h3>Крем-суп из тыквы</h3>
+          <p>Метка уехала в правый верхний угол окна. Обновите страницу, если не видите её рядом с этим текстом.</p>
+        </article>
+      </div>
+
+      <p class="demo-label">3. Тот же случай, но рядом появился предок с <code>position: relative</code></p>
+      <div class="demo-box">
+        <div class="cards">
+          <article class="card featured featured--static">
+            <span class="badge">Сезонное</span>
+            <h3>Крем-суп из тыквы</h3>
+            <p>Теперь положение метки задаёт рамка <code>.demo-box</code> — ближайший предок с <code>position</code>, отличным от <code>static</code>.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">Все опыты</a> · <a href="#top">В начало страницы</a></p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+    </div>
+  </footer>
+</body>
+</html>
