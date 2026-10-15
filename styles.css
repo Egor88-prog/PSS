@@ -1,6 +1,10 @@
 /* ============================================================
-   Кулинарная мастерская — лабораторная работа № 4
+   Кулинарная мастерская — лабораторная работа № 5
    Вариант 6. Внешняя таблица стилей.
+   Технологии размещения: Flexbox (меню), Grid (две колонки
+   и сетка карточек), обтекание float (заметка с фото),
+   позиционирование relative/absolute (метка «Сезонное»)
+   и sticky (шапка). Плюс адаптация к узкому экрану.
    Только авторские стили, без слоёв, анимаций, !important
    и атрибута style: всё оформление хранится здесь.
    ============================================================ */
@@ -21,6 +25,9 @@
   --text: #2f2118;            /* основной текст */
   --muted: #6b5546;           /* пояснения, малый текст */
   --line: #e2cdb8;            /* границы таблиц и форм */
+
+  /* метка absolute на карточке (работа № 5) */
+  --badge-bg: #173e68;        /* тёмно-синий: белый текст 11,4:1 */
 
   /* размеры: переопределяются только в :root, значит --space = 1rem = 16 px */
   --space: 1rem;
@@ -51,13 +58,43 @@ main {
   flex: 1 0 auto;
 }
 
-/* Ширина области содержимого: min() + calc() с переменной.
+/* ------------------------------------------------------------
+   2a. Общая ширина области содержимого (работа № 5)
+   Класс .container добавлен внутренним обёрткам шапки и подвала
+   и самому элементу main.
+   Ширина: min() + calc() с переменной.
    Ручной расчёт при ширине окна 1000 px и --space = 1rem:
    calc(100% - 2 * 16px) = 968px, min(968px, 1120px) = 968px.
-   При ширине окна 1400 px: min(1368px, 1120px) = 1120px. */
-.layout {
+   При ширине окна 1400 px: min(1368px, 1120px) = 1120px.
+   ------------------------------------------------------------ */
+.container {
   width: min(calc(100% - 2 * var(--space)), var(--content-max));
-  margin: 0 auto;
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------
+   2b. Две колонки Grid: основное содержимое и aside (работа № 5)
+   Свободное место делится в отношении 2:1 после вычета gap.
+   minmax(0, ...) разрешает колонке сжиматься уже ширины
+   содержимого. align-items: start не даёт короткой колонке
+   растягиваться на всю высоту соседней.
+   ------------------------------------------------------------ */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Grid-элементы не должны раздуваться содержимым */
+.layout > * {
+  min-width: 0;
+}
+
+/* Закреплённая шапка не закрывает заголовок, к которому
+   ведёт ссылка из меню */
+[id] {
+  scroll-margin-top: 10rem;
 }
 
 h1, h2, h3 {
@@ -136,7 +173,14 @@ hr {
 /* ------------------------------------------------------------
    3. Шапка, навигация, подвал
    ------------------------------------------------------------ */
+
+/* Работа № 5: шапка закреплена наверху окна.
+   Фон непрозрачный, поэтому текст не просвечивает сквозь неё,
+   а ссылка под шапкой не перекрывается. */
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   padding: clamp(1rem, 3vw, 2.5rem);
   text-align: center;
   background-color: var(--accent-soft);
@@ -148,14 +192,24 @@ hr {
   color: var(--muted);
 }
 
-nav ul {
+/* Меню на Flexbox (работа № 5):
+   flex-wrap: wrap разрешает перенос пунктов на узком экране,
+   gap задаёт промежутки без отступов по краям контейнера. */
+.menu {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 0.5rem 1.25rem;
   margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
+}
+
+.menu a {
+  display: block;
+  padding: 0.25rem 0.35rem;
+  border-radius: 0.25rem;
 }
 
 /* Ссылки: обычное состояние, :hover и видимый :focus-visible */
@@ -176,7 +230,7 @@ a:focus-visible {
   border-radius: 2px;
 }
 
-footer {
+.site-footer {
   padding: clamp(1rem, 3vw, 2rem);
   text-align: center;
   font-size: 0.95rem;
@@ -184,7 +238,7 @@ footer {
   border-top: 4px solid var(--accent);
 }
 
-footer a {
+.site-footer a {
   font-weight: 600;
 }
 
@@ -201,7 +255,7 @@ li:first-child {
 }
 
 /* Навигационный список не выделяем — переопределяем локально */
-nav li:first-child {
+.menu li:first-child {
   font-weight: 400;
   color: inherit;
 }
@@ -226,9 +280,12 @@ dd {
 /* ------------------------------------------------------------
    5. Карточки рецептов  (требования 2, 3)
    ------------------------------------------------------------ */
+
+/* Работа № 5: карточки стоят во вложенной сетке Grid —
+   две одинаковые колонки, заполненные по порядку HTML. */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space);
   align-items: start;
 }
@@ -283,6 +340,72 @@ dd {
 .ingredients {
   margin-bottom: 0;
   padding-left: 1.25rem;
+}
+
+/* ------------------------------------------------------------
+   5a. Работа № 5: заметка с обтеканием и метка absolute
+   ------------------------------------------------------------ */
+
+/* display: flow-root создаёт новый блочный контекст форматирования:
+   контейнер учитывает высоту плавающего потомка, а следующие
+   разделы не втягиваются в обтекание. */
+.story {
+  display: flow-root;
+  margin-block: var(--space);
+  padding: var(--space);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: var(--card-bg);
+}
+
+/* float: left прижимает фотографию к левому краю заметки,
+   а строки текста обтекают её справа. */
+.story-image {
+  float: left;
+  width: min(40%, 12rem);
+  height: auto;
+  margin: 0 1rem 0.5rem 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* clear: both переносит абзац ниже плавающих элементов
+   с обеих сторон — после него текст снова во всю ширину. */
+.after-image {
+  clear: both;
+}
+
+.preview {
+  margin: var(--space) 0 0;
+}
+
+.preview img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* Карточка с меткой: relative задаёт опорный блок для absolute. */
+.featured {
+  position: relative;
+  padding-top: 3.5rem;
+}
+
+/* Метка исключена из потока и отсчитывается от .featured.
+   Верхний отступ карточки оставлен свободным, чтобы подпись
+   не накрыла заголовок. */
+.badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--badge-bg);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 /* Экспонат, объявление, врезка */
@@ -357,9 +480,21 @@ tfoot th, tfoot td {
 }
 
 /* ------------------------------------------------------------
-   7. Медиа
+   7. Медиа и предотвращение переполнения (работа № 5)
    ------------------------------------------------------------ */
-audio, video {
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+audio, input, select, textarea {
+  max-width: 100%;
+}
+
+/* Широкая таблица прокручивается внутри своей области:
+   страница целиком не растягивается, переполнение не скрывается. */
+.table-scroll {
+  overflow-x: auto;
   max-width: 100%;
 }
 
@@ -475,10 +610,43 @@ aside p:first-of-type::first-letter {
 }
 
 /* ------------------------------------------------------------
-   10. Узкий экран (проверено на 400, 1000 и 1800 CSS-пикселей)
+   10. Узкий экран (работа № 5)
+   Проверено на ширинах 1200, 768 и 375 CSS-пикселей
+   и при масштабе 200%.
    ------------------------------------------------------------ */
+
+/* Порог 48rem при начальном шрифте 16 px — это 768 px.
+   Блок стоит после основных правил с теми же селекторами. */
+@media (max-width: 48rem) {
+  /* Две колонки и сетка карточек превращаются в одну */
+  .layout,
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Меню выстраивается колонкой и растягивается по ширине */
+  .menu {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  /* Изображение возвращается в обычный поток */
+  .story-image {
+    float: none;
+    display: block;
+    width: min(100%, 20rem);
+    margin: 0 auto 1rem;
+  }
+
+  /* На узком экране шапка не должна занимать пол-экрана */
+  .site-header {
+    position: static;
+  }
+}
+
+/* Узкий экран: широкие таблицы не должны растягивать страницу */
 @media (max-width: 40rem) {
-  /* Узкий экран: широкие таблицы не должны растягивать страницу */
   table {
     font-size: 0.9rem;
   }
@@ -494,8 +662,7 @@ aside p:first-of-type::first-letter {
 }
 
 @media (max-width: 30rem) {
-  nav ul {
-    flex-direction: column;
+  .menu {
     gap: 0.25rem;
   }
 

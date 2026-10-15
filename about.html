@@ -5,27 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Гурский Егор, группа 88тп">
   <title>О проекте — Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 4: подключение внешней таблицы стилей -->
+  <!-- Лабораторная работа № 5: технологии размещения элементов -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header" id="top">
-    <h1>О проекте</h1>
-    <p>Страница с пояснениями к сайту «Кулинарная мастерская».</p>
+    <div class="container">
+      <h1>О проекте</h1>
+      <p>Страница с пояснениями к сайту «Кулинарная мастерская».</p>
+    </div>
   </header>
 
-  <nav aria-label="Разделы страницы">
-    <ul>
+  <nav class="container" aria-label="Разделы страницы">
+    <ul class="menu">
       <li><a href="index.html">На главную</a></li>
-      <li><a href="index.html#gallery">Фотография блюда</a></li>
+      <li><a href="index.html#gallery">Заметка с фотографией</a></li>
+      <li><a href="index.html#recipes">Карточки рецептов</a></li>
       <li><a href="index.html#media">Аудио и видео</a></li>
-      <li><a href="form.html">Запись на занятие</a></li>
+      <li><a href="index.html#request">Запись на занятие</a></li>
+      <li><a href="form.html">Форма записи</a></li>
       <li><a href="#author">Об авторе</a></li>
+      <li><a href="#layout">Размещение элементов</a></li>
       <li><a href="#top">В начало страницы</a></li>
     </ul>
   </nav>
 
-  <main class="layout">
+  <main class="container">
     <section id="author">
       <h2>Об авторе</h2>
       <p>Сайт и все файлы проекта созданы одним автором. Данные об авторе перенесены из лабораторной работы № 1 и в этой работе не изменялись.</p>
@@ -37,15 +42,14 @@
         <dt>Вариант</dt>
         <dd>6 — кулинарная мастерская</dd>
         <dt>Лабораторная работа</dt>
-        <dd>№ 2 «Внедрение контента на HTML-страницу»</dd>
+        <dd>№ 5 «Применение различных технологий размещения элементов в HTML-документе»</dd>
         <dt>Предыдущая работа</dt>
-        <dd>№ 1 «Создание HTML-документа»</dd>
-        <dt>Следующая работа</dt>
-        <dd>№ 3 «Формы и элементы формы»</dd>
+        <dd>№ 4 «Внедрение стилей на страницы сайта»</dd>
       </dl>
       <p>Эта работа продолжает сайт, созданный в лабораторной работе № 1: текст и семантическая структура главной страницы сохранены, добавлены ссылки, изображения, списки, таблицы, аудио и видео.</p>
       <p>В работе № 3 сайт не переделывался: тема варианта 6 осталась прежней, добавлена только страница <a href="form.html">form.html</a> с формой записи на занятие.</p>
       <p>В работе № 4 сохранён весь созданный ранее контент: текст, ссылки, изображения, списки, таблицы, медиа и форма. Добавлены внешняя таблица стилей <a href="styles.css">styles.css</a>, две карточки рецептов на главной странице и временная страница опытов с подключением CSS.</p>
+      <p>В работе № 5 весь этот контент остался доступен — изменилось только расположение блоков и добавлены обёртки и классы для раскладки.</p>
     </section>
 
     <section id="styling">
@@ -70,6 +74,28 @@
         <li><code>box-sizing: border-box</code> для всех элементов</li>
       </ul>
     </section>
+
+    <section id="layout">
+      <h2>Размещение элементов в работе № 5</h2>
+      <p>В работе № 5 сохранён весь контент предыдущих работ, изменено только расположение блоков. Оно задано правилами для классов <code>.container</code>, <code>.menu</code>, <code>.layout</code>, <code>.cards</code>, <code>.story</code>, <code>.story-image</code>, <code>.featured</code> и <code>.badge</code>.</p>
+      <h3>Использованные технологии размещения</h3>
+      <ul>
+        <li><strong>Flexbox</strong> — меню <code>.menu</code>: пункты переносятся (<code>flex-wrap: wrap</code>) и центрируются (<code>justify-content: center</code>)</li>
+        <li><strong>Grid</strong> — <code>.layout</code>: основное содержимое и <code>aside</code> в колонках <code>minmax(0, 2fr)</code> и <code>minmax(0, 1fr)</code></li>
+        <li><strong>Grid</strong> — вложенная сетка карточек <code>.cards</code>: <code>repeat(2, minmax(0, 1fr))</code></li>
+        <li><strong>Обтекание</strong> — заметка <code>.story</code> с <code>display: flow-root</code>, фотография <code>float: left</code>, абзац <code>.after-image</code> с <code>clear: both</code></li>
+        <li><strong>Позиционирование</strong> — карточка <code>.featured</code> с <code>position: relative</code> и метка «Сезонное» с <code>position: absolute</code></li>
+        <li><strong>Закрепление</strong> — шапка <code>.site-header</code> с <code>position: sticky; top: 0; z-index: 10</code> и непрозрачным фоном</li>
+        <li><strong>Адаптация</strong> — медиазапрос <code>@media (max-width: 48rem)</code> переводит колонки в одну, меню — в колонку, а фотографию — в обычный поток</li>
+      </ul>
+      <h3>Структура главной страницы</h3>
+      <ul>
+        <li>один <code>main</code> с классом <code>container</code>, внутри — <code>div class="layout"</code></li>
+        <li>в первой колонке <code>div.layout-main</code> — разделы с <code>id</code> от <code>about</code> до <code>request</code> и объявление <code>#notice</code></li>
+        <li>во второй колонке <code>aside</code> — советы повара (вариант 6)</li>
+        <li>четыре карточки рецептов, у одной из них метка «Сезонное»</li>
+      </ul>
+    </section>
     <section id="about">
       <h2>Назначение страницы</h2>
       <p>Страница <code>about.html</code> поясняет, как устроен учебный сайт кулинарной мастерской и откуда взяты его материалы. Основная страница <a href="index.html">index.html</a> описывает блюда учебного курса, программу занятий и содержит фотографию, аудиофрагмент и видеодемонстрацию приготовления яйца на сковороде.</p>
@@ -79,8 +105,9 @@
     <section id="sources">
       <h2>Сведения об источниках материалов</h2>
       <p>Все файлы проекта — изображения, аудио и видео — взяты из интернета с сайта Википедия и Викисклад (Wikimedia Commons) и снабжены открытыми лицензиями.</p>
-      <table>
-        <caption>Файлы проекта, авторы и лицензии</caption>
+      <div class="table-scroll">
+        <table>
+          <caption>Файлы проекта, авторы и лицензии</caption>
         <thead>
           <tr>
             <th scope="col">Файл</th>
@@ -111,6 +138,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
       <h3>Адреса исходных файлов</h3>
       <ul>
         <li><a href="https://commons.wikimedia.org/wiki/File:Omelette_with_bread_and_parsley_01.jpg" target="_blank" rel="noopener">Omelette with bread and parsley 01.jpg</a> — фотография</li>
@@ -127,7 +155,8 @@
         <li>index.html — главная страница
           <ul>
             <li>ссылки, фотография блюда, списки</li>
-            <li>две таблицы, карточки рецептов, аудио и видео</li>
+            <li>две таблицы, четыре карточки рецептов, аудио и видео</li>
+            <li>меню Flexbox, две колонки Grid, заметка с обтеканием</li>
           </ul>
         </li>
         <li>about.html — сведения о проекте</li>
@@ -140,10 +169,12 @@
     </section>
   </main>
 
-  <footer>
-    <p>Учебная страница. Файл сохранён как <code>about.html</code>.</p>
-    <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
-    <p><a href="index.html">На главную</a> · <a href="#top">В начало страницы</a></p>
+  <footer class="site-footer">
+    <div class="container">
+      <p>Учебная страница. Файл сохранён как <code>about.html</code>.</p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+      <p><a href="index.html">На главную</a> · <a href="#top">В начало страницы</a></p>
+    </div>
   </footer>
 </body>
 </html>

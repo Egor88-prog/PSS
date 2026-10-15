@@ -5,25 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Гурский Егор, группа 88тп">
   <title>Запись на занятие — Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 4: подключение внешней таблицы стилей -->
+  <!-- Лабораторная работа № 5: технологии размещения элементов -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header" id="top">
-    <h1>Запись на занятие</h1>
-    <p>Кулинарная мастерская, вариант 6: форма записи на осенний поток.</p>
+    <div class="container">
+      <h1>Запись на занятие</h1>
+      <p>Кулинарная мастерская, вариант 6: форма записи на осенний поток.</p>
+    </div>
   </header>
 
-  <nav aria-label="Разделы страницы">
-    <ul>
+  <nav class="container" aria-label="Разделы страницы">
+    <ul class="menu">
       <li><a href="index.html">На главную</a></li>
+      <li><a href="index.html#recipes">Карточки рецептов</a></li>
       <li><a href="index.html#schedule">Программа занятий</a></li>
       <li><a href="about.html">О проекте</a></li>
       <li><a href="#top">В начало страницы</a></li>
     </ul>
   </nav>
 
-  <main class="layout">
+  <main class="container">
     <section id="signup">
       <h2>Форма записи</h2>
       <p>Поля, отмеченные знаком <b>*</b>, обязательны для заполнения. Ограничения длины и диапазона подписаны рядом с каждым полем.</p>
@@ -121,10 +124,12 @@
 
   <hr>
 
-  <footer>
-    <p>Учебная страница. Файл сохранён как <code>form.html</code>.</p>
-    <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
-    <p><a href="index.html">На главную</a> · <a href="about.html">О проекте</a> · <a href="#top">В начало страницы</a></p>
+  <footer class="site-footer">
+    <div class="container">
+      <p>Учебная страница. Файл сохранён как <code>form.html</code>.</p>
+      <p><small>Автор: Гурский Егор, группа 88тп.</small></p>
+      <p><a href="index.html">На главную</a> · <a href="about.html">О проекте</a> · <a href="#top">В начало страницы</a></p>
+    </div>
   </footer>
 </body>
 </html>
