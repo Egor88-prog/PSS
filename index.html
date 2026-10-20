@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Гурский Егор, группа 88тп">
   <title>Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 6: адаптивная версия страницы.
-       Один HTML-документ, mobile-first, три состояния макета.
-       Главное изображение — <picture> с двумя кадрами. -->
+  <!-- Лабораторная работа № 7: визуальные эффекты и анимация.
+       Градиенты и тени, фильтр графической ссылки, переходы карточек,
+       однократное появление вводного блока и маркер с паузой. -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,6 +28,7 @@
       <li><a href="#recipes">Карточки рецептов</a></li>
       <li><a href="#dishes">Блюда мастерской</a></li>
       <li><a href="#schedule">Программа занятий</a></li>
+      <li><a href="#motion">Анонс занятия</a></li>
       <li><a href="#media">Аудио и видео</a></li>
       <li><a href="#request">Запись на занятие</a></li>
       <li><a href="form.html">Форма записи</a></li>
@@ -55,7 +56,7 @@
     <div class="layout">
       <div class="layout-main">
 
-        <section id="about">
+        <section id="about" class="intro-effect">
           <h2>О мастерской</h2>
           <p>«Кулинарная мастерская» — учебная кухня, где мы <strong>самостоятельно</strong> готовим простые блюда и разбираемся, <em>почему</em> получается вкусно.</p>
           <p>Занятия проходят небольшими группами: каждый ученик работает у своего рабочего места, взвешивает ингредиенты и <b>пробует готовое блюдо</b>.</p>
@@ -94,7 +95,7 @@
             <p>Пока изображение не закончилось, строки текста обтекают его справа, поэтому ширина абзаца здесь заметно меньше ширины заметки.</p>
             <p class="after-image">Подпись к фотографии: Krzysztof Golik, лицензия CC BY-SA 4.0. Абзац с классом <code>after-image</code> имеет <code>clear: both</code> и снова занимает всю ширину заметки.</p>
             <figure class="preview">
-              <a href="images/exhibit.jpg">
+              <a href="images/exhibit.jpg" class="photo-effect">
                 <img src="images/preview.jpg" width="240" alt="Открыть полное изображение омлета с зеленью">
               </a>
               <figcaption>Миниатюра того же снимка: щёлкните по ней, чтобы открыть оригинал.</figcaption>
@@ -151,7 +152,7 @@
 
           <!-- Вложенная сетка карточек: repeat(2, minmax(0, 1fr)) -->
           <div class="cards">
-            <article class="card" data-kind="new">
+            <article class="card effect-card" data-kind="new">
               <h3>Омлет с зеленью</h3>
               <p>Блюдо первого занятия: пять минут на сковороде и четыре ингредиента.</p>
               <div>
@@ -164,10 +165,11 @@
                 <li>Укроп и петрушка — 1 пучок</li>
                 <li>Соль, перец, растительное масло</li>
               </ul>
+              <p><a class="card-link" href="#recipe">Открыть рецепт омлета</a></p>
             </article>
 
             <!-- featured — карточка с меткой, закреплённой absolute -->
-            <article class="card featured special">
+            <article class="card featured special effect-card">
               <span class="badge">Сезонное</span>
               <h3>Крем-суп из тыквы</h3>
               <p>Основное блюдо осеннего потока: у него свой, бирюзовый акцент оформления.</p>
@@ -180,9 +182,10 @@
                 <li>Пробить сливки и лук в блендере до однородности.</li>
                 <li>Довести на слабом огне и подать с сухариками.</li>
               </ol>
+              <p><a class="card-link" href="#schedule">Посмотреть расписание</a></p>
             </article>
 
-            <article class="card">
+            <article class="card effect-card">
               <h3>Салат из свежих овощей</h3>
               <p>Второе занятие: овощи режутся одинаково, а заправка готовится отдельно.</p>
               <div>
@@ -194,9 +197,10 @@
                 <li>Помидоры — 2 штуки</li>
                 <li>Оливковое масло, соль, зелень</li>
               </ul>
+              <p><a class="card-link" href="form.html">Записаться на занятие</a></p>
             </article>
 
-            <article class="card">
+            <article class="card effect-card">
               <h3>Яблочный пирог</h3>
               <p>Десерт потока: тесто раскатывают тонко, а начинку выкладывают в один слой.</p>
               <div>
@@ -208,6 +212,7 @@
                 <li>Выложить начинку на раскатанное тесто.</li>
                 <li>Выпекать 35 минут при 180 °C до румяной корочки.</li>
               </ol>
+              <p><a class="card-link" href="form.html">Записаться на мастер-класс</a></p>
             </article>
           </div>
         </section>
@@ -259,6 +264,17 @@
                 <tr><th scope="row">Пт</th><td>15:30</td><td>Защита проектов и дегустация</td></tr>
               </tbody>
             </table>
+          </div>
+        </section>
+
+        <section class="motion-section" id="motion">
+          <h2>Анонс занятия</h2>
+          <p>Декоративный элемент оформления раздела. Он показывает, как работает управляемая CSS-анимация, и не является индикатором загрузки или результата формы.</p>
+          <input class="pause-motion" type="checkbox" id="pause-motion">
+          <label for="pause-motion">Приостановить анимацию</label>
+          <div class="motion-demo">
+            <span class="motion-mark" aria-hidden="true"></span>
+            <p>Присоединяйтесь к занятиям кулинарной мастерской: новое блюдо и новая техника каждую неделю.</p>
           </div>
         </section>
 
