@@ -2,11 +2,12 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Гурский Егор, группа 88тп">
   <title>Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 5: технологии размещения элементов
-       (Flexbox, Grid, обтекание float, позиционирование) -->
+  <!-- Лабораторная работа № 6: адаптивная версия страницы.
+       Один HTML-документ, mobile-first, три состояния макета.
+       Главное изображение — <picture> с двумя кадрами. -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -37,7 +38,20 @@
   </nav>
 
   <main class="container">
-    <!-- Две колонки Grid: основное содержимое и дополнительные сведения -->
+    <!-- Главное изображение: на узком экране крупный кадр блюда,
+         на широком — кадр с окружением (хлеб, стол, зелень).
+         width и height совпадают с реальными размерами файлов. -->
+    <picture class="hero">
+      <source media="(min-width: 40em)"
+              srcset="images/hero-wide.jpg"
+              width="1440" height="630">
+      <img src="images/hero-narrow.jpg"
+           width="640" height="480"
+           alt="Омлет с зеленью на белой тарелке, рядом петрушка и ломтик хлеба">
+    </picture>
+
+    <!-- На широком экране две колонки Grid: содержимое и aside.
+         На узком — одна колонка, aside идёт после содержимого. -->
     <div class="layout">
       <div class="layout-main">
 
@@ -200,7 +214,8 @@
 
         <section id="dishes">
           <h2>Блюда мастерской</h2>
-          <div class="table-scroll">
+          <div class="table-scroll" tabindex="0" role="region"
+               aria-label="Количество проектов по блюдам учебного курса">
             <table>
               <caption>Количество проектов по блюдам учебного курса</caption>
               <thead>
@@ -224,7 +239,8 @@
 
         <section id="schedule">
           <h2>Программа занятий</h2>
-          <div class="table-scroll">
+          <div class="table-scroll" tabindex="0" role="region"
+               aria-label="Расписание занятий осеннего потока">
             <table>
               <caption>Расписание осеннего потока</caption>
               <thead>

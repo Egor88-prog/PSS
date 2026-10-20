@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Гурский Егор, группа 88тп">
   <title>Запись на занятие — Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 5: технологии размещения элементов -->
+  <!-- Лабораторная работа № 6: адаптивная форма и сетка полей -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -36,88 +36,91 @@
 
         <fieldset>
           <legend>1. Кто придёт на занятие</legend>
-          <p>
-            <label for="participant-name">Имя участника *</label><br>
-            <input type="text" id="participant-name" name="participant-name"
-                   required minlength="2" maxlength="40" size="40"
-                   placeholder="Например: Иван">
-            <br>
-            <small>Обязательное поле. Допустимая длина имени — от 2 до 40 символов.</small>
-          </p>
-          <p>
-            <label for="participant-email">Электронная почта *</label><br>
-            <input type="email" id="participant-email" name="participant-email"
-                   required size="40" placeholder="name@example.ru">
-            <br>
-            <small>Обязательное поле. Адрес должен быть в виде <code>name@example.ru</code>.</small>
-          </p>
-          <p>
-            <label for="portions">Количество порций *</label><br>
-            <input type="number" id="portions" name="portions"
-                   required min="1" max="6" step="1" value="2">
-            <br>
-            <small>Обязательное поле. Целое число от 1 до 6. Начальное значение — <code>2</code>.</small>
-          </p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="participant-name">Имя участника *</label>
+              <input type="text" id="participant-name" name="participant-name"
+                     required minlength="2" maxlength="40" size="40"
+                     placeholder="Например: Иван">
+              <small>Обязательное поле. Допустимая длина имени — от 2 до 40 символов.</small>
+            </div>
+            <div class="field">
+              <label for="participant-email">Электронная почта *</label>
+              <input type="email" id="participant-email" name="participant-email"
+                     required size="40" placeholder="name@example.ru">
+              <small>Обязательное поле. Адрес должен быть в виде <code>name@example.ru</code>.</small>
+            </div>
+            <div class="field">
+              <label for="portions">Количество порций *</label>
+              <input type="number" id="portions" name="portions"
+                     required min="1" max="6" step="1" value="2">
+              <small>Обязательное поле. Целое число от 1 до 6. Начальное значение — <code>2</code>.</small>
+            </div>
+          </div>
         </fieldset>
 
         <fieldset>
           <legend>2. Опыт работы на кухне</legend>
-          <p>
-            <input type="radio" id="level-novice" name="level" value="novice" checked>
-            <label for="level-novice">Новичок</label>
-          </p>
-          <p>
-            <input type="radio" id="level-experienced" name="level" value="experienced">
-            <label for="level-experienced">Опытный повар</label>
-          </p>
-          <p>
-            <small>У пунктов общее имя <code>name="level"</code> и разные значения, поэтому отметить можно только один пункт. Отмечен «Новичок» (<code>value="novice"</code>) — это начальное значение.</small>
-          </p>
+          <div class="form-grid">
+            <div class="field field-inline">
+              <input type="radio" id="level-novice" name="level" value="novice" checked>
+              <label for="level-novice">Новичок</label>
+            </div>
+            <div class="field field-inline">
+              <input type="radio" id="level-experienced" name="level" value="experienced">
+              <label for="level-experienced">Опытный повар</label>
+            </div>
+            <p class="form-note field-wide">
+              <small>У пунктов общее имя <code>name="level"</code> и разные значения, поэтому отметить можно только один пункт. Отмечен «Новичок» (<code>value="novice"</code>) — это начальное значение.</small>
+            </p>
+          </div>
         </fieldset>
 
         <fieldset>
           <legend>3. Материалы занятия</legend>
-          <p>
-            <input type="checkbox" id="material-recipe" name="material-recipe" value="recipe">
-            <label for="material-recipe">Распечатать рецепт блюда</label>
-          </p>
-          <p>
-            <input type="checkbox" id="material-memo" name="material-memo" value="memo">
-            <label for="material-memo">Выдать памятку по технике безопасности</label>
-          </p>
-          <p>
-            <small>Флажки независимы: у каждого своё имя, можно отметить оба, один или ни один. Неотмеченный флажок не отправляется.</small>
-          </p>
+          <div class="form-grid">
+            <div class="field field-inline">
+              <input type="checkbox" id="material-recipe" name="material-recipe" value="recipe">
+              <label for="material-recipe">Распечатать рецепт блюда</label>
+            </div>
+            <div class="field field-inline">
+              <input type="checkbox" id="material-memo" name="material-memo" value="memo">
+              <label for="material-memo">Выдать памятку по технике безопасности</label>
+            </div>
+            <p class="form-note field-wide">
+              <small>Флажки независимы: у каждого своё имя, можно отметить оба, один или ни один. Неотмеченный флажок не отправляется.</small>
+            </p>
+          </div>
         </fieldset>
 
         <fieldset>
           <legend>4. Выбор блюда и пожелания</legend>
-          <p>
-            <label for="dish">Блюдо для приготовления *</label><br>
-            <select id="dish" name="dish" required>
-              <option value="" selected>— выберите блюдо —</option>
-              <option value="baking">Выпечка</option>
-              <option value="salad">Салат</option>
-              <option value="dessert">Десерт</option>
-            </select>
-            <br>
-            <small>Обязательное поле. Первый пункт — подсказка с пустым значением <code>value=""</code>, он выбран по умолчанию, пока блюдо не выбрано.</small>
-          </p>
-          <p>
-            <label for="wishes">Пожелания к блюду</label><br>
-            <textarea id="wishes" name="wishes" rows="4" cols="50"
-                      maxlength="200" placeholder="Например: меньше соли, без лука"></textarea>
-            <br>
-            <small>Не более 200 символов. При превышении лишние символы не вводятся.</small>
-          </p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="dish">Блюдо для приготовления *</label>
+              <select id="dish" name="dish" required>
+                <option value="" selected>— выберите блюдо —</option>
+                <option value="baking">Выпечка</option>
+                <option value="salad">Салат</option>
+                <option value="dessert">Десерт</option>
+              </select>
+              <small>Обязательное поле. Первый пункт — подсказка с пустым значением <code>value=""</code>, он выбран по умолчанию, пока блюдо не выбрано.</small>
+            </div>
+            <div class="field field-wide">
+              <label for="wishes">Пожелания к блюду</label>
+              <textarea id="wishes" name="wishes" rows="4" cols="50"
+                        maxlength="200" placeholder="Например: меньше соли, без лука"></textarea>
+              <small>Не более 200 символов. При превышении лишние символы не вводятся.</small>
+            </div>
+          </div>
         </fieldset>
 
         <input type="hidden" name="variant" value="6">
 
-        <p>
+        <div class="form-actions">
           <input type="submit" value="Записаться на занятие">
           <input type="reset" value="Очистить форму">
-        </p>
+        </div>
       </form>
     </section>
   </main>

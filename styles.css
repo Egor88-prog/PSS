@@ -1,17 +1,13 @@
 /* ============================================================
-   Кулинарная мастерская — лабораторная работа № 5
-   Вариант 6. Внешняя таблица стилей.
-   Технологии размещения: Flexbox (меню), Grid (две колонки
-   и сетка карточек), обтекание float (заметка с фото),
-   позиционирование relative/absolute (метка «Сезонное»)
-   и sticky (шапка). Плюс адаптация к узкому экрану.
-   Только авторские стили, без слоёв, анимаций, !important
-   и атрибута style: всё оформление хранится здесь.
+   Кулинарная мастерская — лабораторная работа № 6
+   Вариант 6. Адаптивная версия сайта.
+   Подход mobile-first: базовые правила описывают узкий экран,
+   запросы min-width 40em и 64em постепенно добавляют колонки.
+   Один HTML-документ и одна таблица стилей для всех устройств.
    ============================================================ */
 
 /* ------------------------------------------------------------
-   1. Переменные в :root  (требование 6)
-   Значения подставляются функцией var().
+   1. Переменные в :root
    ------------------------------------------------------------ */
 :root {
   /* общий акцент «кухонной» темы */
@@ -26,20 +22,20 @@
   --muted: #6b5546;           /* пояснения, малый текст */
   --line: #e2cdb8;            /* границы таблиц и форм */
 
-  /* метка absolute на карточке (работа № 5) */
+  /* метка на карточке */
   --badge-bg: #173e68;        /* тёмно-синий: белый текст 11,4:1 */
 
-  /* размеры: переопределяются только в :root, значит --space = 1rem = 16 px */
+  /* размеры: --space = 1rem = 16 px при начальном шрифте */
   --space: 1rem;
   --radius: 0.75rem;
   --content-max: 70rem;
 }
 
 /* ------------------------------------------------------------
-   2. Блочная модель и базовая типографика  (требования 4, 5)
+   2. Блочная модель и базовая типографика
    ------------------------------------------------------------ */
 * {
-  box-sizing: border-box;     /* width включает padding и border */
+  box-sizing: border-box;
 }
 
 body {
@@ -58,55 +54,48 @@ main {
   flex: 1 0 auto;
 }
 
-/* ------------------------------------------------------------
-   2a. Общая ширина области содержимого (работа № 5)
-   Класс .container добавлен внутренним обёрткам шапки и подвала
-   и самому элементу main.
-   Ширина: min() + calc() с переменной.
-   Ручной расчёт при ширине окна 1000 px и --space = 1rem:
-   calc(100% - 2 * 16px) = 968px, min(968px, 1120px) = 968px.
-   При ширине окна 1400 px: min(1368px, 1120px) = 1120px.
-   ------------------------------------------------------------ */
+/* Гибкий контейнер: занимает доступную ширину, но имеет предел.
+   При ширине окна 1000 px: min(968px, 1120px) = 968px.
+   При ширине 1400 px: min(1368px, 1120px) = 1120px. */
 .container {
   width: min(calc(100% - 2 * var(--space)), var(--content-max));
   margin-inline: auto;
 }
 
 /* ------------------------------------------------------------
-   2b. Две колонки Grid: основное содержимое и aside (работа № 5)
-   Свободное место делится в отношении 2:1 после вычета gap.
-   minmax(0, ...) разрешает колонке сжиматься уже ширины
-   содержимого. align-items: start не даёт короткой колонке
-   растягиваться на всю высоту соседней.
+   3. Сетки: базовое состояние — одна колонка
    ------------------------------------------------------------ */
-.layout {
+.layout,
+.cards {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: start;
+  grid-template-columns: 1fr;
+  gap: var(--space);
 }
 
-/* Grid-элементы не должны раздуваться содержимым */
-.layout > * {
+.layout > *,
+.cards > * {
   min-width: 0;
 }
 
-/* Закреплённая шапка не закрывает заголовок, к которому
-   ведёт ссылка из меню */
+/* Закреплённая на широком экране шапка не закрывает заголовок,
+   к которому ведёт ссылка из меню */
 [id] {
   scroll-margin-top: 10rem;
 }
 
+/* ------------------------------------------------------------
+   4. Заголовки и текст
+   ------------------------------------------------------------ */
 h1, h2, h3 {
+  margin-bottom: 0.5em;
   font-family: Georgia, "Times New Roman", serif;
   line-height: 1.25;
   color: var(--accent);
 }
 
-/* Размер заголовка меняется вместе с шириной окна (clamp) */
 h1 {
-  margin: 0 0 0.5rem;
-  font-size: clamp(1.75rem, 4vw, 3rem);
+  margin-top: 0;
+  font-size: clamp(1.75rem, 1rem + 2vw, 3rem);
 }
 
 h2 {
@@ -128,12 +117,14 @@ h4 {
   letter-spacing: 0.06em;
 }
 
-h1, h2, h3 {
-  margin-bottom: 0.5em;
-}
-
 p {
   margin: 0 0 0.75rem;
+}
+
+/* Длинные слова, адреса и заголовки не должны создавать
+   горизонтальную прокрутку всей страницы */
+p, a, h1, h2, h3, h4, li, td, th, dd, dt, code {
+  overflow-wrap: anywhere;
 }
 
 section {
@@ -156,7 +147,6 @@ code {
   border-radius: 0.25em;
   background-color: #efe4d8;
   font-size: 0.95em;
-  overflow-wrap: anywhere;
 }
 
 abbr[title] {
@@ -171,16 +161,10 @@ hr {
 }
 
 /* ------------------------------------------------------------
-   3. Шапка, навигация, подвал
+   5. Шапка, меню, подвал
+   На узком экране шапка в обычном потоке, меню — столбцом.
    ------------------------------------------------------------ */
-
-/* Работа № 5: шапка закреплена наверху окна.
-   Фон непрозрачный, поэтому текст не просвечивает сквозь неё,
-   а ссылка под шапкой не перекрывается. */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   padding: clamp(1rem, 3vw, 2.5rem);
   text-align: center;
   background-color: var(--accent-soft);
@@ -192,39 +176,46 @@ hr {
   color: var(--muted);
 }
 
-/* Меню на Flexbox (работа № 5):
-   flex-wrap: wrap разрешает перенос пунктов на узком экране,
-   gap задаёт промежутки без отступов по краям контейнера. */
 .menu {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem 1.25rem;
+  gap: 0.5rem;
   margin: 0.75rem 0 0;
   padding: 0;
   list-style: none;
 }
 
-.menu a {
-  display: block;
-  padding: 0.25rem 0.35rem;
-  border-radius: 0.25rem;
+.menu li {
+  display: flex;
 }
 
-/* Ссылки: обычное состояние, :hover и видимый :focus-visible */
+.menu a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+/* Ссылки: базовое состояние и видимый клавиатурный фокус.
+   Hover добавлен отдельным медиазапросом ниже. */
 a {
   color: var(--accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
 }
 
-a:hover {
-  color: var(--accent-strong);
-  text-decoration-thickness: 2px;
-}
-
-a:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.table-scroll:focus-visible {
   outline: 3px solid var(--accent-strong);
   outline-offset: 2px;
   border-radius: 2px;
@@ -243,7 +234,7 @@ a:focus-visible {
 }
 
 /* ------------------------------------------------------------
-   4. Списки: li:first-child выделяет первый шаг рецепта (вариант 6)
+   6. Списки
    ------------------------------------------------------------ */
 li {
   margin-bottom: 0.25rem;
@@ -254,7 +245,6 @@ li:first-child {
   color: var(--accent);
 }
 
-/* Навигационный список не выделяем — переопределяем локально */
 .menu li:first-child {
   font-weight: 400;
   color: inherit;
@@ -265,7 +255,6 @@ li ul, li ol {
   margin-bottom: 0.5rem;
 }
 
-/* Словарь урока (dl) */
 dt {
   margin-top: 0.5rem;
   font-weight: 700;
@@ -278,23 +267,11 @@ dd {
 }
 
 /* ------------------------------------------------------------
-   5. Карточки рецептов  (требования 2, 3)
+   7. Карточки рецептов
    ------------------------------------------------------------ */
-
-/* Работа № 5: карточки стоят во вложенной сетке Grid —
-   две одинаковые колонки, заполненные по порядку HTML. */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space);
-  align-items: start;
-}
-
-/* Строгий академический стиль: тонкая рамка, почти прямые углы,
-   мягкая тень и цветная полоса слева вместо тяжёлой обводки. */
 .card {
   margin: 0;
-  padding: max(1.25rem, 2vw);    /* max(): отступ не меньше 1.25rem */
+  padding: max(1.25rem, 2vw);
   border: 1px solid var(--line);
   border-left: 4px solid var(--accent);
   border-radius: 0.25rem;
@@ -302,7 +279,6 @@ dd {
   box-shadow: 0 1px 3px rgba(47, 33, 24, 0.08);
 }
 
-/* Заголовок карточки отделён волосяной линией */
 .card h3 {
   padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--line);
@@ -312,27 +288,21 @@ dd {
   font-weight: 700;
 }
 
-/* Потомок на любой глубине: абзац внутри <div> внутри карточки */
 .card p {
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
   color: var(--muted);
 }
 
-/* Вариант 6: у этой карточки локальный акцент.
-   --accent наследуется потомками, поэтому меняются рамка, заголовок
-   и цвет первого пункта списка внутри карточки. */
 .card.special {
   --accent: #0f766e;
 }
 
-/* Селектор соседа: описание сразу после заголовка карточки */
 .card h3 + p {
   font-style: italic;
   color: var(--text);
 }
 
-/* Атрибутный селектор: новая карточка получает широкую рамку слева */
 .card[data-kind="new"] {
   border-left-width: 8px;
 }
@@ -343,12 +313,8 @@ dd {
 }
 
 /* ------------------------------------------------------------
-   5a. Работа № 5: заметка с обтеканием и метка absolute
+   8. Заметка с фотографией, метка, главное изображение
    ------------------------------------------------------------ */
-
-/* display: flow-root создаёт новый блочный контекст форматирования:
-   контейнер учитывает высоту плавающего потомка, а следующие
-   разделы не втягиваются в обтекание. */
 .story {
   display: flow-root;
   margin-block: var(--space);
@@ -358,19 +324,18 @@ dd {
   background-color: var(--card-bg);
 }
 
-/* float: left прижимает фотографию к левому краю заметки,
-   а строки текста обтекают её справа. */
+/* На узком экране изображение в обычном потоке: метка и текст
+   не накладываются друг на друга */
 .story-image {
-  float: left;
-  width: min(40%, 12rem);
+  float: none;
+  display: block;
+  width: min(100%, 20rem);
   height: auto;
-  margin: 0 1rem 0.5rem 0;
+  margin: 0 auto 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
 
-/* clear: both переносит абзац ниже плавающих элементов
-   с обеих сторон — после него текст снова во всю ширину. */
 .after-image {
   clear: both;
 }
@@ -386,19 +351,17 @@ dd {
   border-radius: var(--radius);
 }
 
-/* Карточка с меткой: relative задаёт опорный блок для absolute. */
+/* Карточка с меткой */
 .featured {
   position: relative;
-  padding-top: 3.5rem;
+  padding-top: max(1.25rem, 2vw);
 }
 
-/* Метка исключена из потока и отсчитывается от .featured.
-   Верхний отступ карточки оставлен свободным, чтобы подпись
-   не накрыла заголовок. */
+/* На узком экране метка стоит в обычном потоке над заголовком */
 .badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: static;
+  display: inline-block;
+  margin-bottom: 0.5rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.25rem;
   background-color: var(--badge-bg);
@@ -408,7 +371,20 @@ dd {
   letter-spacing: 0.04em;
 }
 
-/* Экспонат, объявление, врезка */
+/* Главное изображение: один <picture>, два кадра */
+.hero {
+  display: block;
+  margin: 0 0 var(--space);
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
 figure {
   margin: 0 0 var(--space);
 }
@@ -443,8 +419,17 @@ aside {
 }
 
 /* ------------------------------------------------------------
-   6. Таблицы  (требование 2: таблицы сохранены и оформлены)
+   9. Таблицы: прокручивается только область таблицы
    ------------------------------------------------------------ */
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table-scroll table {
+  min-width: 30rem;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -480,7 +465,7 @@ tfoot th, tfoot td {
 }
 
 /* ------------------------------------------------------------
-   7. Медиа и предотвращение переполнения (работа № 5)
+   10. Медиа
    ------------------------------------------------------------ */
 img, video {
   max-width: 100%;
@@ -488,13 +473,6 @@ img, video {
 }
 
 audio, input, select, textarea {
-  max-width: 100%;
-}
-
-/* Широкая таблица прокручивается внутри своей области:
-   страница целиком не растягивается, переполнение не скрывается. */
-.table-scroll {
-  overflow-x: auto;
   max-width: 100%;
 }
 
@@ -508,7 +486,7 @@ video {
 }
 
 /* ------------------------------------------------------------
-   8. Форма записи (form.html) — оформление без изменения разметки
+   11. Форма записи: поля и сетка
    ------------------------------------------------------------ */
 form {
   margin-block: var(--space);
@@ -517,7 +495,7 @@ form {
 fieldset {
   margin-block: var(--space);
   padding: var(--space);
-  min-inline-size: 0;          /* иначе fieldset не сжимается и появляется прокрутка */
+  min-inline-size: 0;
   border: 2px solid var(--line);
   border-radius: var(--radius);
   background-color: var(--card-bg);
@@ -529,18 +507,43 @@ legend {
   color: var(--accent);
 }
 
-label {
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.field {
+  min-width: 0;
+}
+
+.field > label {
+  display: block;
+  margin-bottom: 0.25rem;
   font-weight: 600;
 }
 
+.field small {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* Текстовые поля занимают ширину своей ячейки; чекбоксы,
+   радиокнопки и кнопки не растягиваются */
 input[type="text"],
 input[type="email"],
 input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+input[type="date"],
 select,
 textarea {
+  width: 100%;
+  max-width: 100%;
   margin-top: 0.25rem;
   padding: 0.4rem 0.55rem;
-  max-width: 100%;
   border: 1px solid var(--line);
   border-radius: 0.35rem;
   font: inherit;
@@ -552,54 +555,73 @@ textarea {
   resize: vertical;
 }
 
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 3px solid var(--accent-strong);
-  outline-offset: 2px;
+.field-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
 }
 
-input[type="submit"] {
-  margin-right: 0.5rem;
+.field-inline input {
+  flex: 0 0 auto;
+  width: auto;
+  margin: 0;
+}
+
+.field-inline label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.field-wide {
+  grid-column: 1 / -1;
+}
+
+.form-note {
+  margin: 0;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+input[type="submit"],
+input[type="reset"],
+button {
+  min-height: 44px;
   padding: 0.55rem 1.2rem;
-  border: 2px solid transparent;
   border-radius: 0.4rem;
   font: inherit;
+  cursor: pointer;
+}
+
+input[type="submit"],
+button {
+  border: 2px solid transparent;
   font-weight: 700;
   color: #ffffff;
   background-color: var(--accent);
-  cursor: pointer;
-}
-
-input[type="submit"]:hover {
-  background-color: var(--accent-strong);
 }
 
 input[type="reset"] {
-  padding: 0.55rem 1.2rem;
   border: 2px solid var(--line);
-  border-radius: 0.4rem;
-  font: inherit;
   background-color: transparent;
-  cursor: pointer;
 }
 
 /* ------------------------------------------------------------
-   9. Селектор идентификатора и псевдоэлементы
+   12. Селектор идентификатора и псевдоэлементы
    ------------------------------------------------------------ */
-
-/* Селектор идентификатора (1-0-0): объявление о наборе */
 #notice {
   border-left: 4px solid var(--accent);
 }
 
-/* Псевдоэлемент: декоративный маркер перед заметкой */
 aside h2::before {
   content: "✦ ";
   color: var(--accent);
 }
 
-/* Псевдоэлемент: буквица в начале текста заметки */
 aside p:first-of-type::first-letter {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 2em;
@@ -610,67 +632,107 @@ aside p:first-of-type::first-letter {
 }
 
 /* ------------------------------------------------------------
-   10. Узкий экран (работа № 5)
-   Проверено на ширинах 1200, 768 и 375 CSS-пикселей
-   и при масштабе 200%.
+   13. Устройства ввода
+   Hover — только дополнительное оформление. Действия и меню
+   остаются доступными без наведения.
    ------------------------------------------------------------ */
-
-/* Порог 48rem при начальном шрифте 16 px — это 768 px.
-   Блок стоит после основных правил с теми же селекторами. */
-@media (max-width: 48rem) {
-  /* Две колонки и сетка карточек превращаются в одну */
-  .layout,
-  .cards {
-    grid-template-columns: minmax(0, 1fr);
+@media (hover: hover) and (pointer: fine) {
+  a:hover {
+    color: var(--accent-strong);
+    text-decoration: underline solid 0.15em;
   }
 
-  /* Меню выстраивается колонкой и растягивается по ширине */
+  input[type="submit"]:hover,
+  button:hover {
+    background-color: var(--accent-strong);
+  }
+
+  input[type="reset"]:hover {
+    border-color: var(--accent);
+  }
+}
+
+@media (pointer: coarse) {
+  .menu a,
+  button,
+  input[type="submit"],
+  input[type="reset"],
+  .field-inline {
+    min-height: 48px;
+  }
+}
+
+/* ------------------------------------------------------------
+   14. Контрольная точка 40em = 640 px
+   Две колонки карточек и полей формы, меню строкой.
+   ------------------------------------------------------------ */
+@media (min-width: 40em) {
   .menu {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
   }
 
-  /* Изображение возвращается в обычный поток */
-  .story-image {
-    float: none;
+  .menu li {
     display: block;
-    width: min(100%, 20rem);
-    margin: 0 auto 1rem;
   }
 
-  /* На узком экране шапка не должна занимать пол-экрана */
-  .site-header {
-    position: static;
-  }
-}
-
-/* Узкий экран: широкие таблицы не должны растягивать страницу */
-@media (max-width: 40rem) {
-  table {
-    font-size: 0.9rem;
-  }
-
-  th, td {
-    padding: 0.4rem 0.5rem;
-    overflow-wrap: anywhere;
-  }
-
-  caption {
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 30rem) {
-  .menu {
-    gap: 0.25rem;
-  }
-
-  .card {
-    padding: 1rem;
-  }
-
-  tbody th {
+  .menu a {
     width: auto;
+    text-align: left;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .field-wide {
+    grid-column: 1 / -1;
+  }
+
+  /* Фотография возвращается к обтеканию */
+  .story-image {
+    float: left;
+    width: min(40%, 12rem);
+    margin: 0 1rem 0.5rem 0;
+  }
+
+  /* Метка снова отсчитывается от карточки */
+  .featured {
+    padding-top: 3.5rem;
+  }
+
+  .badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+/* ------------------------------------------------------------
+   15. Контрольная точка 64em = 1024 px
+   Три колонки карточек, aside справа, шапка закреплена.
+   ------------------------------------------------------------ */
+@media (min-width: 64em) {
+  .layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
 }

@@ -2,10 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Гурский Егор, группа 88тп">
   <title>О проекте — Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 5: технологии размещения элементов -->
+  <!-- Лабораторная работа № 6: адаптивная версия страницы -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -42,14 +42,15 @@
         <dt>Вариант</dt>
         <dd>6 — кулинарная мастерская</dd>
         <dt>Лабораторная работа</dt>
-        <dd>№ 5 «Применение различных технологий размещения элементов в HTML-документе»</dd>
+        <dd>№ 6 «Разработка адаптивной версии HTML-страницы в зависимости от разрешения экранов и типа устройств»</dd>
         <dt>Предыдущая работа</dt>
-        <dd>№ 4 «Внедрение стилей на страницы сайта»</dd>
+        <dd>№ 5 «Применение различных технологий размещения элементов в HTML-документе»</dd>
       </dl>
       <p>Эта работа продолжает сайт, созданный в лабораторной работе № 1: текст и семантическая структура главной страницы сохранены, добавлены ссылки, изображения, списки, таблицы, аудио и видео.</p>
       <p>В работе № 3 сайт не переделывался: тема варианта 6 осталась прежней, добавлена только страница <a href="form.html">form.html</a> с формой записи на занятие.</p>
       <p>В работе № 4 сохранён весь созданный ранее контент: текст, ссылки, изображения, списки, таблицы, медиа и форма. Добавлены внешняя таблица стилей <a href="styles.css">styles.css</a>, две карточки рецептов на главной странице и временная страница опытов с подключением CSS.</p>
       <p>В работе № 5 весь этот контент остался доступен — изменилось только расположение блоков и добавлены обёртки и классы для раскладки.</p>
+      <p>В работе № 6 сайт получил адаптивную версию: один HTML-документ и общие стили перестраиваются в зависимости от ширины окна и возможностей ввода. Добавлены главное изображение <code>&lt;picture&gt;</code> с двумя кадрами, сетка формы <code>.form-grid</code>, прокручиваемая область таблицы и оформление для мыши и сенсорного экрана.</p>
     </section>
 
     <section id="styling">
@@ -72,40 +73,51 @@
         <li>переменные в <code>:root</code> и их локальное переопределение</li>
         <li>функции <code>calc()</code>, <code>min()</code>, <code>max()</code> и <code>clamp()</code></li>
         <li><code>box-sizing: border-box</code> для всех элементов</li>
+        <li>адаптивные изображения и <code>&lt;picture&gt;</code> с двумя кадрами</li>
+        <li>медиазапросы <code>min-width: 40em</code> и <code>min-width: 64em</code></li>
+        <li>проверка возможностей ввода <code>hover</code> и <code>pointer</code></li>
       </ul>
     </section>
 
     <section id="layout">
-      <h2>Размещение элементов в работе № 5</h2>
-      <p>В работе № 5 сохранён весь контент предыдущих работ, изменено только расположение блоков. Оно задано правилами для классов <code>.container</code>, <code>.menu</code>, <code>.layout</code>, <code>.cards</code>, <code>.story</code>, <code>.story-image</code>, <code>.featured</code> и <code>.badge</code>.</p>
-      <h3>Использованные технологии размещения</h3>
+      <h2>Адаптивная раскладка в работе № 6</h2>
+      <p>Сайт свёрстан по принципу mobile-first: базовые правила описывают узкий экран, а запросы <code>min-width</code> добавляют колонки и пространство. Используется один HTML-документ и одна таблица стилей <a href="styles.css">styles.css</a>.</p>
+      <h3>Три состояния макета</h3>
       <ul>
-        <li><strong>Flexbox</strong> — меню <code>.menu</code>: пункты переносятся (<code>flex-wrap: wrap</code>) и центрируются (<code>justify-content: center</code>)</li>
-        <li><strong>Grid</strong> — <code>.layout</code>: основное содержимое и <code>aside</code> в колонках <code>minmax(0, 2fr)</code> и <code>minmax(0, 1fr)</code></li>
-        <li><strong>Grid</strong> — вложенная сетка карточек <code>.cards</code>: <code>repeat(2, minmax(0, 1fr))</code></li>
-        <li><strong>Обтекание</strong> — заметка <code>.story</code> с <code>display: flow-root</code>, фотография <code>float: left</code>, абзац <code>.after-image</code> с <code>clear: both</code></li>
-        <li><strong>Позиционирование</strong> — карточка <code>.featured</code> с <code>position: relative</code> и метка «Сезонное» с <code>position: absolute</code></li>
-        <li><strong>Закрепление</strong> — шапка <code>.site-header</code> с <code>position: sticky; top: 0; z-index: 10</code> и непрозрачным фоном</li>
-        <li><strong>Адаптация</strong> — медиазапрос <code>@media (max-width: 48rem)</code> переводит колонки в одну, меню — в колонку, а фотографию — в обычный поток</li>
+        <li><strong>До 40em (до 640 px):</strong> одна колонка карточек и полей формы, <code>aside</code> ниже основного блока, меню столбцом, метка «Сезонное» в обычном потоке. Загружается кадр <code>hero-narrow.jpg</code>.</li>
+        <li><strong>От 40em до 64em (640–1023 px):</strong> две колонки карточек, форма в две колонки, меню строкой с переносом, фотография снова обтекается текстом. Загружается кадр <code>hero-wide.jpg</code>.</li>
+        <li><strong>От 64em (от 1024 px):</strong> три колонки карточек, <code>aside</code> встаёт справа, шапка закрепляется наверху.</li>
+      </ul>
+      <h3>Использованные технологии</h3>
+      <ul>
+        <li><strong>Grid</strong> — <code>.layout</code>: на широком экране колонки <code>minmax(0, 3fr)</code> и <code>minmax(0, 1fr)</code>; <code>.cards</code> и <code>.form-grid</code> последовательно переходят от одной колонки к двум и трём</li>
+        <li><strong>Flexbox</strong> — меню <code>.menu</code> на широком экране становится строкой с переносом, а на узком — столбцом</li>
+        <li><strong>Picture</strong> — <code>&lt;source media="(min-width: 40em)"&gt;</code> выбирает широкий кадр, вложенный <code>img</code> содержит узкий кадр, размеры и <code>alt</code></li>
+        <li><strong>Таблица</strong> — область <code>.table-scroll</code> с <code>tabindex="0"</code> и <code>role="region"</code> прокручивается по горизонтали, не растягивая страницу</li>
+        <li><strong>Форма</strong> — обёртки <code>.field</code>, сетка <code>.form-grid</code>, широкое поле <code>.field-wide</code>; подписи остаются видимыми, сообщения проверки читаются</li>
+        <li><strong>Ввод</strong> — <code>@media (hover: hover) and (pointer: fine)</code> добавляет наведение, <code>@media (pointer: coarse)</code> увеличивает интерактивные элементы</li>
+        <li><strong>Доступность</strong> — видимый <code>:focus-visible</code>, высота ссылок и кнопок не менее 44 px, логичный порядок чтения сохранён</li>
       </ul>
       <h3>Структура главной страницы</h3>
       <ul>
-        <li>один <code>main</code> с классом <code>container</code>, внутри — <code>div class="layout"</code></li>
+        <li>один <code>main</code> с классом <code>container</code>; перед <code>div class="layout"</code> стоит <code>picture.hero</code></li>
         <li>в первой колонке <code>div.layout-main</code> — разделы с <code>id</code> от <code>about</code> до <code>request</code> и объявление <code>#notice</code></li>
-        <li>во второй колонке <code>aside</code> — советы повара (вариант 6)</li>
+        <li>во второй колонке <code>aside</code> — советы повара (вариант 6); на узком экране он идёт после содержимого</li>
         <li>четыре карточки рецептов, у одной из них метка «Сезонное»</li>
+        <li>две таблицы в прокручиваемых областях и форма на отдельной странице</li>
       </ul>
     </section>
     <section id="about">
       <h2>Назначение страницы</h2>
       <p>Страница <code>about.html</code> поясняет, как устроен учебный сайт кулинарной мастерской и откуда взяты его материалы. Основная страница <a href="index.html">index.html</a> описывает блюда учебного курса, программу занятий и содержит фотографию, аудиофрагмент и видеодемонстрацию приготовления яйца на сковороде.</p>
-      <p>Тема варианта закреплена в лабораторной работе № 1 и сохраняется во всех следующих работах: <strong>вариант 6 — кулинарная мастерская</strong>. Оформление страниц вынесено во внешнюю таблицу стилей <code>styles.css</code>; JavaScript в этой работе не используется.</p>
+      <p>Тема варианта закреплена в лабораторной работе № 1 и сохраняется во всех следующих работах: <strong>вариант 6 — кулинарная мастерская</strong>. Оформление страниц вынесено во внешнюю таблицу стилей <code>styles.css</code>; JavaScript для основных заданий не используется. Адаптивность построена на гибких размерах, медиазапросах <code>min-width</code>, <code>&lt;picture&gt;</code> и проверке способов ввода.</p>
     </section>
 
     <section id="sources">
       <h2>Сведения об источниках материалов</h2>
       <p>Все файлы проекта — изображения, аудио и видео — взяты из интернета с сайта Википедия и Викисклад (Wikimedia Commons) и снабжены открытыми лицензиями.</p>
-      <div class="table-scroll">
+      <div class="table-scroll" tabindex="0" role="region"
+           aria-label="Файлы проекта, авторы и лицензии">
         <table>
           <caption>Файлы проекта, авторы и лицензии</caption>
         <thead>
@@ -125,6 +137,16 @@
             <th scope="row">images/preview.jpg</th>
             <td>Уменьшенная копия того же снимка (500 px), миниатюра с сервера Викисклада</td>
             <td>Krzysztof Golik, CC BY-SA 4.0</td>
+          </tr>
+          <tr>
+            <th scope="row">images/hero-narrow.jpg</th>
+            <td>Узкий кадр 640 × 480: крупно омлет и петрушка, без хлеба и края стола</td>
+            <td>Производное кадрирование снимка Krzysztof Golik, CC BY-SA 4.0</td>
+          </tr>
+          <tr>
+            <th scope="row">images/hero-wide.jpg</th>
+            <td>Широкий кадр 1440 × 630: омлет, петрушка, хлеб и деревянный стол</td>
+            <td>Производное кадрирование снимка Krzysztof Golik, CC BY-SA 4.0</td>
           </tr>
           <tr>
             <th scope="row">media/intro.mp3</th>
@@ -156,15 +178,16 @@
           <ul>
             <li>ссылки, фотография блюда, списки</li>
             <li>две таблицы, четыре карточки рецептов, аудио и видео</li>
-            <li>меню Flexbox, две колонки Grid, заметка с обтеканием</li>
+            <li>главное изображение <code>picture.hero</code> с двумя кадрами</li>
+            <li>меню Flexbox, сетки Grid, заметка с обтеканием</li>
           </ul>
         </li>
         <li>about.html — сведения о проекте</li>
-        <li>form.html — форма записи на занятие</li>
-        <li>временная страница опытов с подключением CSS — создавалась для исследования способов подключения и удалена после опытов</li>
-        <li>styles.css — внешняя таблица стилей для всех страниц</li>
-        <li>images — изображения экспоната</li>
+        <li>form.html — форма записи на занятие с сеткой <code>.form-grid</code></li>
+        <li>styles.css — общая адаптивная таблица стилей для всех страниц</li>
+        <li>images — изображения блюда, включая <code>hero-narrow.jpg</code> и <code>hero-wide.jpg</code></li>
         <li>media — аудио- и видеофайлы</li>
+        <li>отчёт по работе № 6 — файл <code>report.md</code> в корне проекта</li>
       </ul>
     </section>
   </main>
