@@ -1,0 +1,12 @@
+{
+  "name": "culinary-workshop-lr08",
+  "version": "1.0.0",
+  "description": "Сайт «Кулинарная мастерская» (вариант 6), лабораторная работа № 8: исходники SCSS и сборка CSS препроцессором sass",
+  "scripts": {
+    "build": "sass --no-source-map scss/styles.scss styles.css",
+    "watch": "sass --watch --no-source-map scss/styles.scss:styles.css"
+  },
+  "devDependencies": {
+    "sass": "^1.86.3"
+  }
+}

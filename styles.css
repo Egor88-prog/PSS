@@ -1,39 +1,19 @@
-/* ============================================================
-   Кулинарная мастерская — лабораторная работа № 6
-   Вариант 6. Адаптивная версия сайта.
-   Подход mobile-first: базовые правила описывают узкий экран,
-   запросы min-width 40em и 64em постепенно добавляют колонки.
-   Один HTML-документ и одна таблица стилей для всех устройств.
-   ============================================================ */
-
-/* ------------------------------------------------------------
-   1. Переменные в :root
-   ------------------------------------------------------------ */
+@charset "UTF-8";
 :root {
-  /* общий акцент «кухонной» темы */
-  --accent: #9a3412;          /* кирпично-коричневый: текст на белом 7,3:1 */
-  --accent-strong: #7c2d12;   /* наведение и видимый фокус */
-  --accent-soft: #ffedd5;     /* светлая подложка разделов */
-
-  /* поверхности и текст */
-  --surface: #faf4ec;         /* фон страницы */
-  --card-bg: #ffffff;         /* фон карточек */
-  --text: #2f2118;            /* основной текст */
-  --muted: #6b5546;           /* пояснения, малый текст */
-  --line: #e2cdb8;            /* границы таблиц и форм */
-
-  /* метка на карточке */
-  --badge-bg: #173e68;        /* тёмно-синий: белый текст 11,4:1 */
-
-  /* размеры: --space = 1rem = 16 px при начальном шрифте */
+  --accent: #9a3412;
+  --accent-strong: #7c2d12;
+  --accent-soft: #ffedd5;
+  --surface: #faf4ec;
+  --card-bg: #ffffff;
+  --text: #2f2118;
+  --muted: #6b5546;
+  --line: #e2cdb8;
+  --badge-bg: #173e68;
   --space: 1rem;
   --radius: 0.75rem;
   --content-max: 70rem;
 }
 
-/* ------------------------------------------------------------
-   2. Блочная модель и базовая типографика
-   ------------------------------------------------------------ */
 * {
   box-sizing: border-box;
 }
@@ -54,17 +34,11 @@ main {
   flex: 1 0 auto;
 }
 
-/* Гибкий контейнер: занимает доступную ширину, но имеет предел.
-   При ширине окна 1000 px: min(968px, 1120px) = 968px.
-   При ширине 1400 px: min(1368px, 1120px) = 1120px. */
 .container {
-  width: min(calc(100% - 2 * var(--space)), var(--content-max));
+  width: min(100% - 2 * var(--space), var(--content-max));
   margin-inline: auto;
 }
 
-/* ------------------------------------------------------------
-   3. Сетки: базовое состояние — одна колонка
-   ------------------------------------------------------------ */
 .layout,
 .cards {
   display: grid;
@@ -77,15 +51,10 @@ main {
   min-width: 0;
 }
 
-/* Закреплённая на широком экране шапка не закрывает заголовок,
-   к которому ведёт ссылка из меню */
 [id] {
   scroll-margin-top: 10rem;
 }
 
-/* ------------------------------------------------------------
-   4. Заголовки и текст
-   ------------------------------------------------------------ */
 h1, h2, h3 {
   margin-bottom: 0.5em;
   font-family: Georgia, "Times New Roman", serif;
@@ -121,8 +90,6 @@ p {
   margin: 0 0 0.75rem;
 }
 
-/* Длинные слова, адреса и заголовки не должны создавать
-   горизонтальную прокрутку всей страницы */
 p, a, h1, h2, h3, h4, li, td, th, dd, dt, code {
   overflow-wrap: anywhere;
 }
@@ -160,82 +127,6 @@ hr {
   margin-block: var(--space);
 }
 
-/* ------------------------------------------------------------
-   5. Шапка, меню, подвал
-   На узком экране шапка в обычном потоке, меню — столбцом.
-   ------------------------------------------------------------ */
-.site-header {
-  padding: clamp(1rem, 3vw, 2.5rem);
-  text-align: center;
-  background-color: var(--accent-soft);
-  border-bottom: 4px solid var(--accent);
-}
-
-.site-header p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 0.75rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.menu li {
-  display: flex;
-}
-
-.menu a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 44px;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
-  text-align: center;
-}
-
-/* Ссылки: базовое состояние и видимый клавиатурный фокус.
-   Hover добавлен отдельным медиазапросом ниже. */
-a {
-  color: var(--accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
-}
-
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-.table-scroll:focus-visible {
-  outline: 3px solid var(--accent-strong);
-  outline-offset: 2px;
-  border-radius: 2px;
-}
-
-.site-footer {
-  padding: clamp(1rem, 3vw, 2rem);
-  text-align: center;
-  font-size: 0.95rem;
-  background-color: #f3e7d8;
-  border-top: 4px solid var(--accent);
-}
-
-.site-footer a {
-  font-weight: 600;
-}
-
-/* ------------------------------------------------------------
-   6. Списки
-   ------------------------------------------------------------ */
 li {
   margin-bottom: 0.25rem;
 }
@@ -243,11 +134,6 @@ li {
 li:first-child {
   font-weight: 700;
   color: var(--accent);
-}
-
-.menu li:first-child {
-  font-weight: 400;
-  color: inherit;
 }
 
 li ul, li ol {
@@ -266,161 +152,6 @@ dd {
   padding-left: 1rem;
 }
 
-/* ------------------------------------------------------------
-   7. Карточки рецептов
-   ------------------------------------------------------------ */
-.card {
-  margin: 0;
-  padding: max(1.25rem, 2vw);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--accent);
-  border-radius: 0.25rem;
-  background-color: var(--card-bg);
-  box-shadow: 0 1px 3px rgba(47, 33, 24, 0.08);
-}
-
-.card h3 {
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.card > p {
-  font-weight: 700;
-}
-
-.card p {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.card.special {
-  --accent: #0f766e;
-}
-
-.card h3 + p {
-  font-style: italic;
-  color: var(--text);
-}
-
-.card[data-kind="new"] {
-  border-left-width: 8px;
-}
-
-.ingredients {
-  margin-bottom: 0;
-  padding-left: 1.25rem;
-}
-
-/* ------------------------------------------------------------
-   8. Заметка с фотографией, метка, главное изображение
-   ------------------------------------------------------------ */
-.story {
-  display: flow-root;
-  margin-block: var(--space);
-  padding: var(--space);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background-color: var(--card-bg);
-}
-
-/* На узком экране изображение в обычном потоке: метка и текст
-   не накладываются друг на друга */
-.story-image {
-  float: none;
-  display: block;
-  width: min(100%, 20rem);
-  height: auto;
-  margin: 0 auto 1rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-.after-image {
-  clear: both;
-}
-
-.preview {
-  margin: var(--space) 0 0;
-}
-
-.preview img {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-/* Карточка с меткой */
-.featured {
-  position: relative;
-  padding-top: max(1.25rem, 2vw);
-}
-
-/* На узком экране метка стоит в обычном потоке над заголовком */
-.badge {
-  position: static;
-  display: inline-block;
-  margin-bottom: 0.5rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  background-color: var(--badge-bg);
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-/* Главное изображение: один <picture>, два кадра */
-.hero {
-  display: block;
-  margin: 0 0 var(--space);
-}
-
-.hero img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-figure {
-  margin: 0 0 var(--space);
-}
-
-figure img {
-  max-width: 100%;
-  height: auto;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-figcaption {
-  margin-top: 0.4rem;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-article {
-  margin-block: var(--space);
-  padding: var(--space);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background-color: var(--card-bg);
-}
-
-aside {
-  margin-block: var(--space);
-  padding: var(--space);
-  border-left: 8px solid var(--accent);
-  border-radius: var(--radius);
-  background-color: var(--accent-soft);
-}
-
-/* ------------------------------------------------------------
-   9. Таблицы: прокручивается только область таблицы
-   ------------------------------------------------------------ */
 .table-scroll {
   max-width: 100%;
   overflow-x: auto;
@@ -464,9 +195,6 @@ tfoot th, tfoot td {
   background-color: #f7efe6;
 }
 
-/* ------------------------------------------------------------
-   10. Медиа
-   ------------------------------------------------------------ */
 img, video {
   max-width: 100%;
   height: auto;
@@ -485,20 +213,274 @@ video {
   border-radius: var(--radius);
 }
 
-/* ------------------------------------------------------------
-   11. Форма записи: поля и сетка
-   ------------------------------------------------------------ */
+@media (min-width: 40em) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 64em) {
+  .layout {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 1.5rem;
+  }
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.site-header {
+  padding: clamp(1rem, 3vw, 2.5rem);
+  text-align: center;
+  background-color: var(--accent-soft);
+  border-bottom: 4px solid var(--accent);
+}
+
+.site-header p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.menu li {
+  display: flex;
+}
+.menu li:first-child {
+  font-weight: 400;
+  color: inherit;
+}
+.menu a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+.menu a:focus-visible {
+  outline: 3px solid #7c2d12;
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.table-scroll:focus-visible {
+  outline: 3px solid #7c2d12;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.site-footer {
+  padding: clamp(1rem, 3vw, 2rem);
+  text-align: center;
+  font-size: 0.95rem;
+  background-color: #f3e7d8;
+  border-top: 4px solid var(--accent);
+}
+
+.site-footer a {
+  font-weight: 600;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e2cdb8;
+  border-radius: 0.75rem;
+  padding: max(1.25rem, 2vw);
+  margin: 0;
+  border-left: 4px solid var(--accent);
+  box-shadow: 0 1px 3px rgba(47, 33, 24, 0.08);
+}
+.card h3 {
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--line);
+}
+.card > p {
+  font-weight: 700;
+}
+.card p {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.card.special {
+  --accent: #0f766e;
+}
+.card h3 + p {
+  font-style: italic;
+  color: var(--text);
+}
+.card[data-kind=new] {
+  border-left-width: 8px;
+}
+
+.ingredients {
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+}
+
+.ingredients-block {
+  background-color: #ffedd5;
+  border: 1px solid #e2cdb8;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  padding-left: 1.25rem;
+}
+
+.story {
+  display: flow-root;
+  margin-block: var(--space);
+  background-color: #ffffff;
+  border: 1px solid #e2cdb8;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.story-image {
+  float: none;
+  display: block;
+  width: min(100%, 20rem);
+  height: auto;
+  margin: 0 auto 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.after-image {
+  clear: both;
+}
+
+.preview {
+  margin: var(--space) 0 0;
+}
+
+.preview img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.featured {
+  position: relative;
+  padding-top: max(1.25rem, 2vw);
+}
+
+.badge {
+  position: static;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--badge-bg);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+@media (min-width: 40em) {
+  .badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+.hero {
+  display: block;
+  margin: 0 0 var(--space);
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+figure {
+  margin: 0 0 var(--space);
+}
+
+figure img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+article {
+  margin-block: var(--space);
+  background-color: #ffffff;
+  border: 1px solid #e2cdb8;
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+aside {
+  margin-block: var(--space);
+  padding: var(--space);
+  border-left: 8px solid var(--accent);
+  border-radius: var(--radius);
+  background-color: var(--accent-soft);
+}
+
+#notice {
+  border-left: 4px solid var(--accent);
+}
+
+aside h2::before {
+  content: "✦ ";
+  color: var(--accent);
+}
+
+aside p:first-of-type::first-letter {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2em;
+  line-height: 0.8;
+  float: left;
+  padding-right: 0.08em;
+  color: var(--accent);
+}
+
 form {
   margin-block: var(--space);
 }
 
 fieldset {
   margin-block: var(--space);
-  padding: var(--space);
   min-inline-size: 0;
-  border: 2px solid var(--line);
-  border-radius: var(--radius);
-  background-color: var(--card-bg);
+  background-color: #ffffff;
+  border: 2px solid #e2cdb8;
+  border-radius: 0.75rem;
+  padding: 1rem;
 }
 
 legend {
@@ -528,16 +510,14 @@ legend {
   margin-top: 0.25rem;
 }
 
-/* Текстовые поля занимают ширину своей ячейки; чекбоксы,
-   радиокнопки и кнопки не растягиваются */
-input[type="text"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="url"],
-input[type="password"],
-input[type="date"],
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=search],
+input[type=tel],
+input[type=url],
+input[type=password],
+input[type=date],
 select,
 textarea {
   width: 100%;
@@ -574,7 +554,7 @@ textarea {
 }
 
 .field-wide {
-  grid-column: 1 / -1;
+  grid-column: 1/-1;
 }
 
 .form-note {
@@ -587,8 +567,8 @@ textarea {
   gap: 0.5rem;
 }
 
-input[type="submit"],
-input[type="reset"],
+input[type=submit],
+input[type=reset],
 button {
   min-height: 44px;
   padding: 0.55rem 1.2rem;
@@ -597,7 +577,7 @@ button {
   cursor: pointer;
 }
 
-input[type="submit"],
+input[type=submit],
 button {
   border: 2px solid transparent;
   font-weight: 700;
@@ -605,67 +585,33 @@ button {
   background-color: var(--accent);
 }
 
-input[type="reset"] {
+input[type=reset] {
   border: 2px solid var(--line);
   background-color: transparent;
 }
 
-/* ------------------------------------------------------------
-   12. Селектор идентификатора и псевдоэлементы
-   ------------------------------------------------------------ */
-#notice {
-  border-left: 4px solid var(--accent);
-}
-
-aside h2::before {
-  content: "✦ ";
-  color: var(--accent);
-}
-
-aside p:first-of-type::first-letter {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 2em;
-  line-height: 0.8;
-  float: left;
-  padding-right: 0.08em;
-  color: var(--accent);
-}
-
-/* ------------------------------------------------------------
-   13. Устройства ввода
-   Hover — только дополнительное оформление. Действия и меню
-   остаются доступными без наведения.
-   ------------------------------------------------------------ */
 @media (hover: hover) and (pointer: fine) {
   a:hover {
     color: var(--accent-strong);
     text-decoration: underline solid 0.15em;
   }
-
-  input[type="submit"]:hover,
+  input[type=submit]:hover,
   button:hover {
     background-color: var(--accent-strong);
   }
-
-  input[type="reset"]:hover {
+  input[type=reset]:hover {
     border-color: var(--accent);
   }
 }
-
 @media (pointer: coarse) {
   .menu a,
   button,
-  input[type="submit"],
-  input[type="reset"],
+  input[type=submit],
+  input[type=reset],
   .field-inline {
     min-height: 48px;
   }
 }
-
-/* ------------------------------------------------------------
-   14. Контрольная точка 40em = 640 px
-   Две колонки карточек и полей формы, меню строкой.
-   ------------------------------------------------------------ */
 @media (min-width: 40em) {
   .menu {
     flex-direction: row;
@@ -673,99 +619,53 @@ aside p:first-of-type::first-letter {
     justify-content: center;
     gap: 0.5rem 1.25rem;
   }
-
   .menu li {
     display: block;
   }
-
   .menu a {
     width: auto;
     text-align: left;
   }
-
-  .cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .form-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
   .field-wide {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
   }
-
-  /* Фотография возвращается к обтеканию */
   .story-image {
     float: left;
     width: min(40%, 12rem);
     margin: 0 1rem 0.5rem 0;
   }
-
-  /* Метка снова отсчитывается от карточки */
   .featured {
     padding-top: 3.5rem;
   }
-
-  .badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    margin-bottom: 0;
-  }
 }
-
-/* ------------------------------------------------------------
-   15. Контрольная точка 64em = 1024 px
-   Три колонки карточек, aside справа, шапка закреплена.
-   ------------------------------------------------------------ */
 @media (min-width: 64em) {
-  .layout {
-    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
-    align-items: start;
-    gap: 1.5rem;
-  }
-
-  .cards {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .site-header {
     position: sticky;
     top: 0;
     z-index: 10;
   }
 }
-
-/* ============================================================
-   Лабораторная работа № 7. Визуальные эффекты и анимация
-   ============================================================ */
-
-/* ------------------------------------------------------------
-   16. Статические эффекты карточек: градиент, тень, скругление
-   ------------------------------------------------------------ */
 .effect-card {
   display: flex;
   flex-direction: column;
   border-radius: var(--radius);
   background-image: linear-gradient(135deg, #ffffff 0%, #fff7ed 100%);
-  box-shadow: 0 6px 16px 0 rgb(47 33 24 / 0.14);
-  transition: transform 200ms ease,
-              box-shadow 200ms ease;
+  box-shadow: 0 6px 16px 0 rgba(47, 33, 24, 0.14);
+  transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
-/* Ссылка прижимается к низу карточки, если соседняя карточка выше */
 .effect-card > p:last-child {
   margin-top: auto;
   padding-top: 0.5rem;
 }
 
-/* У «сезонной» карточки свой оттенок градиента */
 .card.special.effect-card {
   background-image: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
 }
 
-/* Ссылка внутри карточки остаётся видимой и доступной с клавиатуры */
 .card-link {
   display: inline-flex;
   align-items: center;
@@ -782,22 +682,17 @@ aside p:first-of-type::first-letter {
   content: " →";
 }
 
-/* Переход срабатывает при наведении и при фокусе внутри карточки */
 .effect-card:focus-within {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgb(47 33 24 / 0.2);
+  box-shadow: 0 10px 24px rgba(47, 33, 24, 0.2);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .effect-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 24px rgb(47 33 24 / 0.2);
+    box-shadow: 0 10px 24px rgba(47, 33, 24, 0.2);
   }
 }
-
-/* ------------------------------------------------------------
-   17. Фильтр графической ссылки
-   ------------------------------------------------------------ */
 .photo-effect {
   display: inline-block;
   border-radius: var(--radius);
@@ -817,11 +712,6 @@ aside p:first-of-type::first-letter {
     filter: grayscale(0);
   }
 }
-
-/* ------------------------------------------------------------
-   18. Однократное появление вводного блока
-   Базовое состояние оставляет блок видимым, если анимация отключена.
-   ------------------------------------------------------------ */
 .intro-effect {
   opacity: 1;
   transform: none;
@@ -838,15 +728,10 @@ aside p:first-of-type::first-letter {
     transform: translateY(0);
   }
 }
-
-/* Тень заголовка — статический эффект, не влияющий на раскладку */
 .site-header h1 {
-  text-shadow: 0 1px 0 #ffffff, 0 2px 8px rgb(154 52 18 / 0.12);
+  text-shadow: 0 1px 0 #ffffff, 0 2px 8px rgba(154, 52, 18, 0.12);
 }
 
-/* ------------------------------------------------------------
-   19. Декоративный маркер с паузой
-   ------------------------------------------------------------ */
 .motion-section {
   margin-block: clamp(1.5rem, 3vw, 3rem);
   padding: var(--space);
@@ -860,27 +745,7 @@ aside p:first-of-type::first-letter {
   padding: 1rem;
   border: 1px dashed var(--line);
   border-radius: var(--radius);
-  background-color: rgb(255 255 255 / 0.72);
-}
-
-.motion-mark {
-  display: block;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-bottom: 0.75rem;
-  border-radius: 0.35rem;
-  background-color: #173e68;
-  transform: none;
-  animation: marker-move 2s ease-in-out 3;
-}
-
-@keyframes marker-move {
-  0%, 100% {
-    transform: translateX(0) scale(1);
-  }
-  50% {
-    transform: translateX(3rem) scale(1.15);
-  }
+  background-color: rgba(255, 255, 255, 0.72);
 }
 
 .pause-motion {
@@ -888,6 +753,13 @@ aside p:first-of-type::first-letter {
   height: 1.15rem;
   accent-color: var(--accent);
   vertical-align: middle;
+}
+.pause-motion:checked ~ .motion-demo .motion-mark {
+  animation-play-state: paused;
+}
+.pause-motion:focus-visible {
+  outline: 3px solid #7c2d12;
+  outline-offset: 3px;
 }
 
 .pause-motion + label {
@@ -898,30 +770,15 @@ aside p:first-of-type::first-letter {
   font-weight: 600;
 }
 
-/* Комбинатор ~ выбирает блок маркера после отмеченного чекбокса */
-.pause-motion:checked ~ .motion-demo .motion-mark {
-  animation-play-state: paused;
-}
-
-.pause-motion:focus-visible {
-  outline: 3px solid var(--accent-strong);
-  outline-offset: 3px;
-}
-
-/* ------------------------------------------------------------
-   20. Уменьшение движения — правило в самом конце эффектов
-   ------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   .intro-effect,
   .motion-mark {
     animation: none;
   }
-
   .effect-card,
   .photo-effect img {
     transition: none;
   }
-
   .effect-card:hover,
   .effect-card:focus-within {
     transform: none;

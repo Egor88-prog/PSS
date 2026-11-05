@@ -1,0 +1,15 @@
+
+
+@use "tokens";
+
+@mixin panel($bg, $pad: tokens.$space, $radius: tokens.$radius, $border-width: 1px) {
+  background-color: $bg;
+  border: $border-width solid tokens.$line;
+  border-radius: $radius;
+  padding: $pad;
+}
+
+@mixin focus-ring($width: 3px, $offset: 2px) {
+  outline: $width solid tokens.$accent-strong;
+  outline-offset: $offset;
+}

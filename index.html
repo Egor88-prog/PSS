@@ -4,11 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Гурский Егор, группа 88тп">
-  <title>Кулинарная мастерская</title>
-  <!-- Лабораторная работа № 7: визуальные эффекты и анимация.
-       Градиенты и тени, фильтр графической ссылки, переходы карточек,
-       однократное появление вводного блока и маркер с паузой. -->
-  <link rel="stylesheet" href="styles.css">
+  <title>Кулинарная мастерская</title>  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="site-header" id="top">
@@ -18,9 +14,7 @@
     </div>
   </header>
 
-  <nav class="container" aria-label="Разделы страницы">
-    <!-- Меню собрано на Flexbox: пункты переносятся и центрируются -->
-    <ul class="menu">
+  <nav class="container" aria-label="Разделы страницы">    <ul class="menu">
       <li><a href="#about">О мастерской</a></li>
       <li><a href="#gallery">Заметка с фотографией</a></li>
       <li><a href="#recipe">Простой рецепт</a></li>
@@ -38,11 +32,7 @@
     </ul>
   </nav>
 
-  <main class="container">
-    <!-- Главное изображение: на узком экране крупный кадр блюда,
-         на широком — кадр с окружением (хлеб, стол, зелень).
-         width и height совпадают с реальными размерами файлов. -->
-    <picture class="hero">
+  <main class="container">    <picture class="hero">
       <source media="(min-width: 40em)"
               srcset="images/hero-wide.jpg"
               width="1440" height="630">
@@ -50,9 +40,6 @@
            width="640" height="480"
            alt="Омлет с зеленью на белой тарелке, рядом петрушка и ломтик хлеба">
     </picture>
-
-    <!-- На широком экране две колонки Grid: содержимое и aside.
-         На узком — одна колонка, aside идёт после содержимого. -->
     <div class="layout">
       <div class="layout-main">
 
@@ -85,10 +72,7 @@
         </section>
 
         <section id="gallery">
-          <h2>Заметка с фотографией блюда</h2>
-          <!-- Обтекание: картинка floated, текст идёт справа,
-               .after-image возвращает абзац под изображение -->
-          <article class="story">
+          <h2>Заметка с фотографией блюда</h2>          <article class="story">
             <img class="story-image" src="images/exhibit.jpg"
                  alt="Омлет с зеленью на белой тарелке, рядом свежая петрушка и ломтик хлеба">
             <p>На занятии ученики фотографируют готовое блюдо и добавляют снимок на страницу мастерской. Выше — фотография из Википедии: омлет с петрушкой и хлебом.</p>
@@ -149,8 +133,6 @@
 
         <section id="recipes">
           <h2>Карточки рецептов</h2>
-
-          <!-- Вложенная сетка карточек: repeat(2, minmax(0, 1fr)) -->
           <div class="cards">
             <article class="card effect-card" data-kind="new">
               <h3>Омлет с зеленью</h3>
@@ -159,7 +141,7 @@
                 <p>Совет повара: солите смесь до взбивания, иначе белки хуже держат форму.</p>
               </div>
               <h4>Ингредиенты</h4>
-              <ul class="ingredients">
+              <ul class="ingredients ingredients-block">
                 <li>Яйца куриные — 2 штуки</li>
                 <li>Молоко — 50 мл</li>
                 <li>Укроп и петрушка — 1 пучок</li>
@@ -167,8 +149,6 @@
               </ul>
               <p><a class="card-link" href="#recipe">Открыть рецепт омлета</a></p>
             </article>
-
-            <!-- featured — карточка с меткой, закреплённой absolute -->
             <article class="card featured special effect-card">
               <span class="badge">Сезонное</span>
               <h3>Крем-суп из тыквы</h3>
@@ -192,7 +172,7 @@
                 <p>Совет повара: заправляйте салат только перед подачей, иначе он потечёт.</p>
               </div>
               <h4>Ингредиенты</h4>
-              <ul class="ingredients">
+              <ul class="ingredients ingredients-block">
                 <li>Огурцы — 2 штуки</li>
                 <li>Помидоры — 2 штуки</li>
                 <li>Оливковое масло, соль, зелень</li>
